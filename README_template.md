@@ -33,7 +33,7 @@ When the onboarding agent asks about **intent** (e.g. "What is the primary goal?
 ### `intent.md`
 - **Goal:** Encode organizational purpose, trade-off hierarchies, and decision boundaries.
 - **Content:** Primary goal; what "done" looks like for v1; trade-off tie-breakers (e.g. speed vs accuracy); what the user controls and what the agent must escalate; optional one-sentence summary.
-- **Intent interview (1–2 questions):** The onboarding agent gathers intent in two steps: **(Q1)** goal, "done," and controls; **(Q2)** trade-offs and escalation. At each section boundary the **agent** mirrors back what it heard, asks for clarification, incorporates feedback, then moves on (including writing the one-sentence Summary at the top of `intent.md`). See `onboarding-agent.md` for the exact prompts.
+- **Intent interview (1-2 questions):** The onboarding agent gathers intent in two steps: **(Q1)** goal, "done," and controls; **(Q2)** trade-offs and escalation. At each section boundary the **agent** mirrors back what it heard, asks for clarification, incorporates feedback, then moves on (including writing the one-sentence Summary at the top of `intent.md`). See `onboarding-agent.md` for the exact prompts.
 
 ### `boundary_log.md` (The Surprise Log)
 - **Goal:** Track Boundary Sensing.
@@ -52,17 +52,28 @@ When the onboarding agent asks about **intent** (e.g. "What is the primary goal?
 
 ---
 
-## 3. Specification Engineering & Seam Design (Action Layer)
-*The Blueprint Layer: Turning tasks into autonomous specifications.*
+## 3. Specification Engineering (Action Layer)
+*Formal specs for each **`ST-xx`** - authored with **`spec-engineer.md`**, then executed under **`orchestration.md`**.*
 
-### `task_specifications/` Directory
-- **Goal:** A library of project tasks broken down using the 5 Specification Primitives.
-- **Template for each spec:**
-  1. **Self-Contained Statement:** State the task with zero implicit contextual assumptions.
-  2. **Acceptance Criteria:** Exactly what verifiable output signals the task is done.
-  3. **Constraint Architecture:** The *Musts*, *Must Nots*, *Preferences*, and *Escalation Triggers*.
-  4. **Decomposition:** How a planner agent should break this large task into independent <2 hour subtasks.
-  5. **Seam Design (Trigger/Output):** Define the exact "seam" (the verifiable artifact) passed back to a human or another system.
+### **`spec-engineer.md`** (Specification Agent)
+- **Bridge:** **`task_breakdown.md`** (onboarding) -> **`task_specifications/NN_ST-xx_short-title.md`** -> execution.
+- **Reads first:** **`task_breakdown.md`** (canonical **`ST-xx`**, **`Depends on:`**, resume), then **`intent.md`** and **`context.md`**, then **`SPEC_STAGING.md`** if present for **OPEN** inbox rows.
+- **Writes:** One spec file per **`ST-xx`**, named **`NN_ST-xx_short-title.md`** (`NN` = `01`, `02`, ... in **`## Sub-tasks`** order). **`DRAFT*`** filenames are allowed until stable; **Phase completion** (**D**) requires non-`DRAFT` specs and a clean reconcile (**A.4**). Full rules: **`spec-engineer.md`** (this README does not restate **Workflow S**, **B**, **C**, **D**).
+
+### `task_specifications/` directory
+- **Goal:** A **library of milestone specs** that **`orchestration.md`** can run (roadmap = **`NN_ST-xx_*.md`** files only).
+- **Not milestones:** **`README.md`**, **`SPEC_STAGING.md`** (staging inbox), **`00_*`** templates, and other non-`NN_ST-xx_*` files - see **`spec-engineer.md`** **A.4** / **D** and **`task_specifications/README.md`**.
+
+### Document template (five `##` sections, this order)
+Authoritative detail is in **`spec-engineer.md`** **Document template**. Summary:
+
+1. **Self-Contained Problem Statement** - What to do; inputs and outputs; assumptions; inline facts not already in **`intent.md`** / **`context.md`** when required.
+2. **Constraint Architecture** - Exactly these subsections: **`### Must`**, **`### Must Not`**, **`### Preferences`**, **`### Escalation Triggers`**.
+3. **Acceptance Criteria** - Exactly **three** numbered sentences (**1.** **2.** **3.**), each independently verifiable.
+4. **Decomposition / Dependencies** - Scoped to **this** **`ST-xx`**: prerequisite **`ST-xx`**, optional micro-steps, parallelism notes (for the Manager - not new product scope).
+5. **Evaluation Design** - **3-5** executable cases **`EV-01`** ... **`EV-05`** (how to run, expected output) proving the acceptance criteria.
+
+**Legacy file:** **`00_Task_Specification_Template.md`** may differ; **`spec-engineer.md`** wins on headings and order.
 
 ---
 
@@ -70,16 +81,13 @@ When the onboarding agent asks about **intent** (e.g. "What is the primary goal?
 *The Operation Layer: Minimizing prompt craft while calibrating human review.*
 
 ### Execution modes
-With Intent, Context, and Specifications defined, you can run work in two ways:
+With Intent, Context, **`task_breakdown.md`**, and specifications defined, you can run work in two ways:
 
-- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_X.md`."* The agent does that spec's work (and may use the development/testing skills in single-agent mode).
+- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_ST-01_short-slug.md`."* (Use your repo's actual **`NN_ST-xx_*.md`** path.) The agent does that spec's work (and may use the development/testing skills in single-agent mode).
 - **Orchestrated execution:** Multi-milestone, with memory, Developer/Tester roles (or subagents), and **parallel** tasks when dependencies allow. Example prompt: *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* The agent builds the roadmap from `task_specifications/`, writes tasks to `memory/tasks/`, invokes Developer and Tester with task paths, and runs the full Manager loop. See **`orchestration.md`** and **`docs/framework-flow.md`** for when and how to use it.
 
-### Leverage Calibration
-Every task specification must define its review threshold:
-- *Autonomous (0% review)*
-- *Sampled (10% review)*
-- *Full Review (100% review)*
+### Leverage calibration
+Optional **review threshold** line at the top of a spec file (e.g. Autonomous / Sampled / Full), if the project wants it - see **`spec-engineer.md`** completion gate **C** and optional review hook.
 
 ---
 
