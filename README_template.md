@@ -78,13 +78,17 @@ Authoritative detail is in **`spec-engineer.md`** **Document template**. Summary
 ---
 
 ## 4. Prompt Craft & Leverage Calibration (Execution Layer)
-*The Operation Layer: Minimizing prompt craft while calibrating human review.*
+*Execution runs **after** specifications exist. It does **not** replace **`task_breakdown.md`** or **`spec-engineer.md`**. See **`docs/framework-flow.md`**.**
+
+### Prerequisites (before single-spec or orchestrated execution)
+- **Onboarding outputs:** **`intent.md`**, **`context.md`**, **`task_breakdown.md`** with **`ST-xx`** sub-tasks. Global files must not have **`ONB0`** on line 1 when you leave onboarding (see **`onboarding-agent.md`** Section 9).
+- **Specifications:** **`task_specifications/NN_ST-xx_*.md`** files produced by **`spec-engineer.md`** until **Phase completion (D)** - one non-`DRAFT` spec per **`ST-xx`** on disk. If those files are missing or incomplete, run **`spec-engineer.md`** first; do **not** treat execution prompts as a shortcut around the specification phase.
 
 ### Execution modes
-With Intent, Context, **`task_breakdown.md`**, and specifications defined, you can run work in two ways:
+With Intent, Context, **`task_breakdown.md`**, and **formal specs** under **`task_specifications/`** (from **`spec-engineer.md`**), you can run work in two ways:
 
-- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_ST-01_short-slug.md`."* (Use your repo's actual **`NN_ST-xx_*.md`** path.) The agent does that spec's work (and may use the development/testing skills in single-agent mode).
-- **Orchestrated execution:** Multi-milestone, with memory, Developer/Tester roles (or subagents), and **parallel** tasks when dependencies allow. Example prompt: *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* The agent builds the roadmap from `task_specifications/`, writes tasks to `memory/tasks/`, invokes Developer and Tester with task paths, and runs the full Manager loop. See **`orchestration.md`** and **`docs/framework-flow.md`** for when and how to use it.
+- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_ST-01_scaffold-repo-layout.md`."* (Use your repo's actual **`NN_ST-xx_*.md`** path.) The agent does that spec's work (and may use the development/testing skills in single-agent mode).
+- **Orchestrated execution:** Multi-milestone, with memory, Developer/Tester roles (or subagents), and **parallel** tasks when dependencies allow. Example prompt: *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* The agent builds the roadmap **only** from milestone spec files (**`NN_ST-xx_*.md`**, per **`orchestration.md`**), writes tasks to **`memory/tasks/`**, invokes Developer and Tester with task paths, and runs the Manager loop. Same prerequisite: specs must already exist from **`spec-engineer.md`**. See **`orchestration.md`** and **`docs/framework-flow.md`**.
 
 ### Leverage calibration
 Optional **review threshold** line at the top of a spec file (e.g. Autonomous / Sampled / Full), if the project wants it - see **`spec-engineer.md`** completion gate **C** and optional review hook.
