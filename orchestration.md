@@ -23,10 +23,20 @@ You are the **ORCHESTRATION AGENT** - the **Execution Manager** in a **Planner-W
 
 ## 1. INITIALIZATION
 
-1. **Verify Specification phase completeness.**  
-   Enumerate `task_specifications/*.md` (exclude `README.md`, templates, and `DRAFT*`). If none exist or required specs are missing relative to `task_breakdown.md` (if present), **halt** with a pointer to **`spec-engineer.md`**.
+**Alignment with `spec-engineer.md`:** Execution assumes **Specification Phase Complete** per **`spec-engineer.md`** section **D** (reconcile **A.4**, completion gate **C** per file, no blocking **`OPEN`** rows in **`SPEC_STAGING.md`**). Your checks below mirror that **file set** so the roadmap matches what the Specification Agent reconciled.
+
+1. **Verify Specification phase completeness (reconcile milestone specs).**
+
+   **Milestone spec files** (only these are executable milestones): files under **`task_specifications/`** whose names match **`NN_ST-xx_*.md`** (`NN` = zero-padded order `01`, `02`, ...; **`ST-xx`** = sub-task id from **`task_breakdown.md`**). Each file must be **non-`DRAFT`** (no `DRAFT` prefix on the filename).
+
+   **Exclude entirely** from milestone lists and roadmap (same as **`spec-engineer.md`** **A.4** / **D** edge cases): **`README.md`**, **`SPEC_STAGING.md`**, **`00_*`** (and any other template-only names your repo uses), generic **templates**, and any filename matching **`DRAFT*`**.
+
+   **Reconcile with `task_breakdown.md`:** It must exist (if missing, **halt** - finish onboarding / **`spec-engineer.md`** preconditions). Collect every **`ST-xx`** from **`## Sub-tasks`** in order. For each **`ST-xx`**, require **exactly one** non-`DRAFT` **`NN_ST-xx_*.md`** file. **Halt** to **`spec-engineer.md`** if: any **`ST-xx`** has **no** matching file, **more than one** file for the same **`ST-xx`**, an **orphan** spec (filename **`ST-xx`** not in the breakdown), or **`SPEC_STAGING.md`** still has **`OPEN`** rows (staging not drained - phase not complete).
+
 2. Read **`intent.md`** and **`context.md`** for **constraints, escalation, and environment** - not to invent tasks.
+
 3. **Runtime requirements:** For each row in the **Runtime / environment requirements** table in **`context.md`**, run **verify** commands; try documented fallbacks (e.g. `py` on Windows). If still missing, follow **requirement failure** behavior in **`intent.md`** - record blockers in **`memory/`**, escalate, and **do not** start milestones that depend on the missing prerequisite.
+
 4. **Subagent capability (Section 1a):** Before milestone execution, establish whether Developer/Tester subagents can be invoked; log in **`memory/subagent_capability_and_fallback.md`**; apply **10-minute** fallback policy only as documented there (same mechanics as before: notify human, timestamp, later session may proceed with logged fallback).
 
 ### 1a. Subagent capability establishment (summary)
@@ -45,13 +55,14 @@ You are the **ORCHESTRATION AGENT** - the **Execution Manager** in a **Planner-W
 
 ---
 
-## 3. ROADMAP (from spec files only)
+## 3. ROADMAP (from milestone spec files only)
 
-- Build **`memory/roadmap.md`** as the **sorted list** of specification files in **`task_specifications/`** (`01_*.md`, `02_*.md`, ...).
-- **Do not** insert, merge, or rename milestones from **`intent.md`** alone.
+- **Source of truth:** **`memory/roadmap.md`** lists **only** the **milestone spec files** defined in **Section 1** (pattern **`NN_ST-xx_*.md`**, non-`DRAFT`, with the same **excludes** as **`spec-engineer.md`**: not **`README.md`**, **`SPEC_STAGING.md`**, **`00_*`**, templates, or **`DRAFT*`**).
+- **Order:** Sort by **`NN`** ascending (`01`, `02`, ...). That order must match **`task_breakdown.md`** top-to-bottom **`ST-xx`** order (see **`spec-engineer.md`** **Outputs** - **Renumbering and filename alignment**).
+- **Do not** insert, merge, or rename milestones from **`intent.md`** alone, or from **`SPEC_STAGING.md`** (inbox only).
 - Use each spec's **Decomposition / Dependencies** section to mark **blocked** / **ready** states - not to add new scope.
 
-**Finalizing the roadmap** means: roadmap written to memory; no spec file is `DRAFT`; runtime prerequisites satisfied or escalated. **Do not ask the user to "approve" vague scope** - only to resolve **escalations** or **missing specs**.
+**Finalizing the roadmap** means: **`memory/roadmap.md`** written; every row is a **non-`DRAFT`** **`NN_ST-xx_*.md`** file that passed **Section 1** reconcile; runtime prerequisites satisfied or escalated. **Do not ask the user to "approve" vague scope** - only to resolve **escalations** or return to **`spec-engineer.md`** for **missing or invalid specs**.
 
 ---
 
