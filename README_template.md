@@ -73,7 +73,7 @@ Authoritative detail is in **`spec-engineer.md`** **Document template**. Summary
 4. **Decomposition / Dependencies** - Scoped to **this** **`ST-xx`**: prerequisite **`ST-xx`**, optional micro-steps, parallelism notes (for the Manager - not new product scope).
 5. **Evaluation Design** - **3-5** executable cases **`EV-01`** ... **`EV-05`** (how to run, expected output) proving the acceptance criteria.
 
-**Legacy file:** **`00_Task_Specification_Template.md`** may differ; **`spec-engineer.md`** wins on headings and order.
+**Scaffold:** **`00_Task_Specification_Template.md`** follows the **`spec-engineer.md`** document shape; **`spec-engineer.md`** still wins on any conflict (headings, gates, staging).
 
 ---
 

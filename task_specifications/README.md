@@ -1,6 +1,6 @@
 # Task Specifications
 
-This directory holds **concrete task specifications** (files matching `NN_ST-xx_short-title.md` per **`spec-engineer.md`**) that an agent can execute. Each spec follows the five primitives in **`spec-engineer.md`** (the numbered template in `00_Task_Specification_Template.md` is legacy scaffolding - **`spec-engineer.md`** wins on section order and headings).
+This directory holds **concrete task specifications** (files matching `NN_ST-xx_short-title.md` per **`spec-engineer.md`**) that an agent can execute. Each spec follows the five primitives in **`spec-engineer.md`**. **`00_Task_Specification_Template.md`** is a starter scaffold; if anything disagrees, **`spec-engineer.md`** wins on section order, headings, and gates.
 
 **Staging:** **`SPEC_STAGING.md`** is the **inbox** for fragments not yet promotable into a spec; the Specification Agent drains it as sub-tasks and sections mature. It is **not** an executable spec, does **not** use the **`NN_ST-xx_*.md`** pattern, and is **excluded** from **`ST-xx`** reconcile and from **roadmap** / milestone lists - **orchestration** should treat only numbered **`NN_ST-xx_*.md`** files as work items (see **`spec-engineer.md`** Workflow **S** and **A.4**).
 
