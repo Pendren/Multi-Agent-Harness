@@ -19,4 +19,4 @@ Right after onboarding, **only the template exists** (`00_Task_Specification_Tem
 **Once specs exist - execution:**
 
 - **Single spec:** *"Review `intent.md`, `context.md`, and execute `task_specifications/[NN_ST-xx_*.md]`."*
-- **Orchestrated (multi-milestone, memory, parallel):** *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* Uses the roadmap from these specs, the development and testing skills, and `memory/tasks/`. Per task, execution order is Test Author -> Developer -> Test Runner (test-implementation separation; see **`orchestration.md`** Section 4). See **`orchestration.md`** and **`docs/framework-flow.md`**.
+- **Orchestrated (multi-milestone, memory, parallel):** *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* Uses the roadmap from these specs, the development, test-author, and test-runner skills, and `memory/tasks/`. Per task, execution order is Test Author -> Developer -> Test Runner (test-implementation separation; see **`orchestration.md`** Section 4). See **`orchestration.md`** and **`docs/framework-flow.md`**.

@@ -210,4 +210,4 @@ Declare **Specification Phase Complete** only when **A.4** is clear (**no** miss
 
 ## Cursor / tooling note
 
-If the project uses **Cursor Skills**, this agent does **not** replace **`development`** or **`testing`** skills—those apply **after** specs exist. **Do not** load skills to **author** or **discover** spec content; **Harness scope (self-contained)** defines the read set. This prompt is **Phase 3** in the lifecycle: **Specification Engineering** between onboarding and orchestration.
+If the project uses **Cursor Skills**, this agent does **not** replace **`development`**, **`test-author`**, or **`test-runner`** skills - those apply **after** specs exist (under **`orchestration.md`**). **Do not** load skills to **author** or **discover** spec content; **Harness scope (self-contained)** defines the read set. This prompt is **Phase 3** in the lifecycle: **Specification Engineering** between onboarding and orchestration.

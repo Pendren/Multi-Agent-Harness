@@ -20,10 +20,10 @@ This document describes how the project moves from a blank (or templated) repo t
 ## Phase 1: Initialization
 
 - **Trigger:** AI (or user) runs the bootstrapping instructions in **README_template.md** Section 0 (AI Autonomous Stand-Up).
-- **Actions:** Ensure directory structure, install dependencies, create missing scaffold files (intent.md, context.md, onboarding-agent.md, **spec-engineer.md**, task_specifications/00_Task_Specification_Template.md, boundary_log.md, failure_model.md, **orchestration.md**, **.cursor/skills/development/**, **.cursor/skills/testing/**, **.cursor/agents/developer.md**, **.cursor/agents/tester.md**). Write **INITIALIZATION_REPORT.md**.
+- **Actions:** Ensure directory structure, install dependencies, create missing scaffold files (intent.md, context.md, onboarding-agent.md, **spec-engineer.md**, task_specifications/00_Task_Specification_Template.md, boundary_log.md, failure_model.md, **orchestration.md**, **.cursor/skills/development/**, **.cursor/skills/test-author/**, **.cursor/skills/test-runner/**, **.cursor/agents/developer.md**, **.cursor/agents/test-author.md**, **.cursor/agents/test-runner.md**). Write **INITIALIZATION_REPORT.md**.
 - **Next:** **Immediately** run the onboarding flow (open onboarding-agent.md and execute). Do not ask the user whether to run onboarding; begin the interview.
 
-**Template capture:** The template (or init) must include **orchestration.md** and the two skills so every new project gets the same execution design (dev + test skills, memory/tasks, parallel when safe).
+**Template capture:** The template (or init) must include **orchestration.md** and the execution skills (**development**, **test-author**, **test-runner**) so every new project gets the same execution design (memory/tasks, parallel when safe).
 
 ---
 
@@ -68,14 +68,14 @@ Two modes:
 
 - **When:** One milestone or one spec to run; no need for full roadmap, memory, or parallel.
 - **Prompt (example):** "Review intent.md and context.md. Execute task_specifications/01_X.md."
-- **Behavior:** Agent reads intent, context, and that spec; does the work (and may use the development/testing skills in single-agent mode); reports when done. No orchestration.md, no memory/tasks/, no multi-milestone loop.
+- **Behavior:** Agent reads intent, context, and that spec; does the work (and may use the development / test-author / test-runner skills in single-agent mode); reports when done. No orchestration.md, no memory/tasks/, no multi-milestone loop.
 
 ### B. Orchestrated execution
 
-- **When:** Long multi-stage project; you want roadmap from all specs, durable memory, Developer/Tester subagents (or roles), and **parallel** tasks when dependencies allow.
-- **Prompt (example):** "Review intent.md, context.md, and orchestration.md. Run the orchestration: build the roadmap from task_specifications/, use memory and the development and testing skills, run the Manager loop (and parallel invocation when safe)."
-- **Prerequisites:** intent.md, context.md, and at least one (ideally all) numbered task spec(s). Orchestration.md and .cursor/skills/development/ and .cursor/skills/testing/ must exist (from template or init).
-- **Behavior:** Agent acts as Orchestration Agent: establishes subagent capability (**orchestration.md** Section 1a); initializes from intent and context; builds roadmap from specs; finalizes roadmap in memory; then runs the Manager loop. Per task: Test Author (Tester) writes tests from spec to evals/acceptance/<id>/ first; Developer implements (must not read acceptance tests); Test Runner (Tester) runs pre-written tests only. Writes tasks to memory/tasks/, invokes Developer and Tester with task paths, supports parallel when deps allow, escalates per **orchestration.md** Section 6 (progress and retry). If subagent invocation is not possible, notifies human and may use fallback after 10 minutes (see **orchestration.md** Section 1a). See **orchestration.md** for full instructions.
+- **When:** Long multi-stage project; you want roadmap from all specs, durable memory, Developer / Test Author / Test Runner subagents (or roles), and **parallel** tasks when dependencies allow.
+- **Prompt (example):** "Review intent.md, context.md, and orchestration.md. Run the orchestration: build the roadmap from task_specifications/, use memory and the development, test-author, and test-runner skills, run the Manager loop (and parallel invocation when safe)."
+- **Prerequisites:** intent.md, context.md, and at least one (ideally all) numbered task spec(s). Orchestration.md and .cursor/skills/development/, .cursor/skills/test-author/, and .cursor/skills/test-runner/ must exist (from template or init).
+- **Behavior:** Agent acts as Orchestration Agent: establishes subagent capability (**orchestration.md** Section 1a); initializes from intent and context; builds roadmap from specs; finalizes roadmap in memory; then runs the Manager loop. Per task: Test Author writes tests from spec to evals/acceptance/<spec-stem>/ first; Developer implements (must not read acceptance tests); Test Runner runs pre-written tests only. Writes tasks to memory/tasks/, invokes Developer, Test Author, and Test Runner with task paths, supports parallel when deps allow, escalates per **orchestration.md** Section 6 (progress and retry). If subagent invocation is not possible, notifies human and may use fallback after 10 minutes (see **orchestration.md** Section 1a). See **orchestration.md** for full instructions.
 
 **Where orchestration fits:** Only in **Phase 4, Option B**. It is the "full" execution path. Option A is the "single spec" path. Both fulfill the framework; orchestration adds memory, skills, and parallelism for multi-milestone work.
 

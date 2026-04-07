@@ -28,7 +28,7 @@ ONB0
 |-------------|---------------------------|--------------------|-------------------------------|
 | [Example: Python 3.x] | [e.g. `python --version` or `py --version`] | [e.g. On Windows: if `python` not found, use `py`] | [yes / no / suggest only] |
 
-- **When to verify:** **`orchestration.md`** at initialization; Developer and Tester skills when running commands (try documented fallbacks before concluding a requirement is missing).
+- **When to verify:** **`orchestration.md`** at initialization; Developer, Test Author, and Test Runner skills when running commands (try documented fallbacks before concluding a requirement is missing).
 
 ---
 
