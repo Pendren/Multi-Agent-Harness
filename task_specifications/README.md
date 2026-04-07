@@ -1,6 +1,8 @@
 # Task Specifications
 
-This directory holds **concrete task specifications** (numbered files like `01_First_Feature.md`) that an agent can execute. Each spec follows the 5 Specification Primitives in `00_Task_Specification_Template.md`.
+This directory holds **concrete task specifications** (files matching `NN_ST-xx_short-title.md` per **`spec-engineer.md`**) that an agent can execute. Each spec follows the five primitives in **`spec-engineer.md`** (the numbered template in `00_Task_Specification_Template.md` is legacy scaffolding—**`spec-engineer.md`** wins on section order and headings).
+
+**Staging:** **`SPEC_STAGING.md`** is the **inbox** for fragments not yet promotable into a spec; the Specification Agent drains it as sub-tasks and sections mature. It is **not** an executable spec, does **not** use the **`NN_ST-xx_*.md`** pattern, and is **excluded** from **`ST-xx`** reconcile and from **roadmap** / milestone lists—**orchestration** should treat only numbered **`NN_ST-xx_*.md`** files as work items (see **`spec-engineer.md`** Workflow **S** and **A.4**).
 
 ## After onboarding
 
@@ -19,4 +21,4 @@ Example prompt to create then run first spec: *"Review `intent.md` and `context.
 **Once specs exist — execution:**
 
 - **Single spec:** *"Review `intent.md`, `context.md`, and execute `task_specifications/[task_name].md`."*
-- **Orchestrated (multi-milestone, memory, parallel):** *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* Uses the roadmap from these specs, the development and testing skills, and `memory/tasks/`. Per task, execution order is Test Author → Developer → Test Runner (test–implementation separation; see orchestration.md §2b). See `orchestration.md` and `docs/framework-flow.md`.
+- **Orchestrated (multi-milestone, memory, parallel):** *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* Uses the roadmap from these specs, the development and testing skills, and `memory/tasks/`. Per task, execution order is Test Author → Developer → Test Runner (test-implementation separation; see **orchestration.md** Section 4). See `orchestration.md` and `docs/framework-flow.md`.

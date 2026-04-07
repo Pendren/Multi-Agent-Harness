@@ -8,7 +8,7 @@ This document describes how the project moves from a blank (or templated) repo t
 
 | Phase | What happens | Who drives | Output |
 |-------|----------------|------------|--------|
-| **1. Initialization** | Directory structure, dependencies, scaffold files | AI (bootstrapping instructions in README §0) | INITIALIZATION_REPORT.md; triggers onboarding |
+| **1. Initialization** | Directory structure, dependencies, scaffold files | AI (bootstrapping instructions in **README_template.md** Section 0) | INITIALIZATION_REPORT.md; triggers onboarding |
 | **2. Onboarding** | Interview to fill intent and context; spec candidates | AI (onboarding-agent.md); user answers | intent.md, context.md, spec candidates in context, 00 template, boundary_log |
 | **3. Spec creation** | Create numbered specs from candidates; optional review | AI in a **new session**; user prompts | task_specifications/01_….md, 02_….md, … |
 | **4. Execution** | Run work: single-spec or full orchestration | AI; user chooses mode and prompts | Delivered work; memory/ if orchestrated |
@@ -19,7 +19,7 @@ This document describes how the project moves from a blank (or templated) repo t
 
 ## Phase 1: Initialization
 
-- **Trigger:** AI (or user) runs the bootstrapping instructions in **README §0** (AI Autonomous Stand-Up).
+- **Trigger:** AI (or user) runs the bootstrapping instructions in **README_template.md** Section 0 (AI Autonomous Stand-Up).
 - **Actions:** Ensure directory structure, install dependencies, create missing scaffold files (intent.md, context.md, onboarding-agent.md, task_specifications/00_Task_Specification_Template.md, boundary_log.md, failure_model.md, **orchestration.md**, **.cursor/skills/development/**, **.cursor/skills/testing/**, **.cursor/agents/developer.md**, **.cursor/agents/tester.md**). Write **INITIALIZATION_REPORT.md**.
 - **Next:** **Immediately** run the onboarding flow (open onboarding-agent.md and execute). Do not ask the user whether to run onboarding; begin the interview.
 
@@ -74,7 +74,7 @@ Two modes:
 - **When:** Long multi-stage project; you want roadmap from all specs, durable memory, Developer/Tester subagents (or roles), and **parallel** tasks when dependencies allow.
 - **Prompt (example):** "Review intent.md, context.md, and orchestration.md. Run the orchestration: build the roadmap from task_specifications/, use memory and the development and testing skills, run the Manager loop (and parallel invocation when safe)."
 - **Prerequisites:** intent.md, context.md, and at least one (ideally all) numbered task spec(s). Orchestration.md and .cursor/skills/development/ and .cursor/skills/testing/ must exist (from template or init).
-- **Behavior:** Agent acts as Orchestration Agent: establishes subagent capability (§1a); initializes from intent and context; builds roadmap from specs; finalizes roadmap in memory; then runs the Manager loop. Per task: Test Author (Tester) writes tests from spec to evals/acceptance/<id>/ first; Developer implements (must not read acceptance tests); Test Runner (Tester) runs pre-written tests only. Writes tasks to memory/tasks/, invokes Developer and Tester with task paths, supports parallel when deps allow, escalates per §7. If subagent invocation is not possible, notifies human and may use fallback after 10 minutes (see §1a). See **orchestration.md** for full instructions.
+- **Behavior:** Agent acts as Orchestration Agent: establishes subagent capability (**orchestration.md** Section 1a); initializes from intent and context; builds roadmap from specs; finalizes roadmap in memory; then runs the Manager loop. Per task: Test Author (Tester) writes tests from spec to evals/acceptance/<id>/ first; Developer implements (must not read acceptance tests); Test Runner (Tester) runs pre-written tests only. Writes tasks to memory/tasks/, invokes Developer and Tester with task paths, supports parallel when deps allow, escalates per **orchestration.md** Section 6 (progress and retry). If subagent invocation is not possible, notifies human and may use fallback after 10 minutes (see **orchestration.md** Section 1a). See **orchestration.md** for full instructions.
 
 **Where orchestration fits:** Only in **Phase 4, Option B**. It is the "full" execution path. Option A is the "single spec" path. Both fulfill the framework; orchestration adds memory, skills, and parallelism for multi-milestone work.
 
@@ -85,6 +85,6 @@ Two modes:
 1. **Init:** No user choice—"run onboarding immediately" after init so the user is not stuck on "what do I do?"
 2. **Onboarding:** One question at a time, mirror back, file as you go, confirm what was captured where. At the end, **one clear terminal message**: scaffolding complete, kill session, then "in a new session do X or Y" (create specs, then execute single or orchestrated).
 3. **Spec creation:** User says "create specs from intent and context." Agent creates them. User can then say "review each spec with me" for quality. No need to mention orchestration until execution.
-4. **Execution:** User says either "execute task_specifications/01_X.md" (single) or "run orchestration" / "run the orchestration from orchestration.md" (full). The framework flow doc and README (§4) should state both options and point to orchestration.md for Option B.
+4. **Execution:** User says either "execute task_specifications/01_X.md" (single) or "run orchestration" / "run the orchestration from orchestration.md" (full). The framework flow doc and **README_template.md** Section 4 should state both options and point to orchestration.md for Option B.
 
 That way the user always knows: **init → onboard → (new session) create specs → (optional) review specs → execute (single or orchestrated)**. Orchestration is clearly the "full execution" option after specs exist.

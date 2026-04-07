@@ -20,10 +20,10 @@ Use this skill when you are the **Tester** and have been given a **task path** i
 
 ## Mode A: Test Author (task path contains "test-author")
 
-**When your task is a test-author task** (e.g. memory/tasks/test-author-01-feature.md):
+**When your task is a test-author task** (e.g. memory/tasks/test-author-01-step2.md):
 
-- Open the **Task Specification** path given in the task file. **Use only** **§3 Acceptance Criteria** and **§5 Evaluation Design** from that spec (plus **intent.md** and **context.md** for environment, paths, and legal/escalation context). **Do not read** **§1**, **§2**, or **§4** from the spec. Do **not** read product source code or Developer output. No implementation exists yet when you run.
-- **Write** executable tests that realize every **Evaluation Design** case and prove the **three Acceptance Criteria** sentences. Write them to the **acceptance test directory** given in the task (e.g. **evals/acceptance/01-feature/**). Create the directory if needed.
+- **Use only:** the task description, the spec (Acceptance Criteria, Eval Design), intent.md, and context.md. **Do NOT read any implementation**, source code for the feature, or Developer output. No implementation exists yet when you run.
+- **Write** acceptance tests that verify the spec's acceptance criteria and the scenarios in the spec's Eval Design. Write them to the **acceptance test directory** given in the task (e.g. **evals/acceptance/01-step2/**). Create the directory if needed.
 - **Then exit.** Do not run the tests; do not read implementation. Your only output is the test files in the acceptance test directory.
 
 ---

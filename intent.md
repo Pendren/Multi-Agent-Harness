@@ -1,3 +1,4 @@
+ONB0
 # Intent Engineering
 
 **Project:** [Project Name]
@@ -27,7 +28,7 @@
 - **User controls:** [e.g., Observation on/off, when to clear chat, when to start fresh]
 - **Autonomous Decisions:** [e.g., Categorizing data, writing first drafts]
 - **Must Escalate:** [e.g., Deleting records, emailing external clients, anything not in `evals/`] (5) **Runtime requirement still missing after retries** — see requirement failure state below.
-- **Requirement failure state (runtime prerequisites):** For each runtime requirement listed in context.md (§1a), if the requirement is not present: (1) **Try alternative methods** where applicable (e.g. on Windows, try `py` if `python` fails). (2) **If the user has authorized the agent to install** missing requirements (see context §1a "Agent may install"), attempt to install or run the documented install steps. (3) **If the requirement is still not satisfied**, escalate to the user with a clear report: what is missing, what was tried (including alternatives and any install attempt), and what they need to do. Do not assume a requirement is satisfied without running the verify step; do not proceed with work that depends on a missing requirement until it is satisfied or the user has responded to the escalation.
+- **Requirement failure state (runtime prerequisites):** For each runtime requirement listed in the **Runtime / environment requirements** table in **context.md**, if the requirement is not present: (1) **Try alternative methods** where applicable (e.g. on Windows, try `py` if `python` fails). (2) **If the user has authorized the agent to install** missing requirements (see **context.md** "Agent may install" in the runtime requirements table), attempt to install or run the documented install steps. (3) **If the requirement is still not satisfied**, escalate to the user with a clear report: what is missing, what was tried (including alternatives and any install attempt), and what they need to do. Do not assume a requirement is satisfied without running the verify step; do not proceed with work that depends on a missing requirement until it is satisfied or the user has responded to the escalation.
 
 ## 4. Output Philosophy & "Done"
 *From Intent Q1. What does "done" or "good enough" look like for the first version—one verifiable outcome?*

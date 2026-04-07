@@ -1,3 +1,4 @@
+ONB0
 # Context Engineering
 
 **Project:** [Project Name]
@@ -26,7 +27,7 @@
 
 ## 2. Rules & Conventions
 - **Coding Style / Tone of Voice:** [e.g., Follow PEP8, use descriptive variable names, write in a professional but approachable tone]
-- **Acceptance test directory (test–implementation separation):** Acceptance tests are written from the spec **before** implementation and live under **evals/acceptance/** (per-task subdirs e.g. evals/acceptance/01-step2/). The Developer must not read this directory; the Test Author writes here from spec only; the Test Runner runs tests here and does not modify them. See orchestration.md §2b.
+- **Acceptance test directory (test-implementation separation):** Acceptance tests are written from the spec **before** implementation and live under **evals/acceptance/** (per-task subdirs e.g. evals/acceptance/01-step2/). The Developer must not read this directory; the Test Author writes here from spec only; the Test Runner runs tests here and does not modify them. See **orchestration.md**, Section 4 (execution loop: Test Author, Developer, Test Runner).
 - **Data Structures / DB Schema Context:** [Provide relevant schemas or links to them]
 
 ## 3. Spec Candidates / First Specs to Draft

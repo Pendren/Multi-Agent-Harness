@@ -8,7 +8,7 @@ This document summarizes how the **WorkBrain** project refined the baseline AI A
 
 The original template at `ai_agent_project` contained:
 
-- **README_template.md** — Bootstrapping (§0), five framework sections; execution = single "Execute task_specifications/…" only.
+- **README_template.md** — Bootstrapping (Section 0), five framework sections; execution = single "Execute task_specifications/…" only.
 - **onboarding-agent.md** — Intent (Q1/Q2) and context interview; terminal step: create specs then execute first, or execute existing spec. No orchestration, no execution scaffold.
 - **intent.md**, **context.md** — Placeholders with section structure.
 - **task_specifications/00_Task_Specification_Template.md** — Five specification primitives.
@@ -27,9 +27,9 @@ The original template at `ai_agent_project` contained:
 4. **Framework flow** — Added `docs/framework-flow.md`: Init → Onboarding → Spec creation (optional review) → Execution (single-spec **or** orchestrated). Clarifies where orchestration is used (Phase 4 only).
 5. **Execution modes** — Two options: **single-spec** ("Execute task_specifications/X.md") and **orchestrated** ("Run orchestration" with roadmap, memory, skills, parallel).
 6. **Onboarding updates** — Terminal step: create specs, optionally review each spec with user, then execute **single or orchestrated**; step 8: ensure orchestration.md and skills exist.
-7. **README updates** — Execution scaffold (ensure orchestration + skills + agents); §4 describes both execution modes; link to framework-flow at top.
+7. **README updates** — Execution scaffold (ensure orchestration + skills + agents); README Section 4 describes both execution modes; link to framework-flow at top.
 8. **task_specifications/README** — Optional spec review; execute single or orchestrated with pointers to orchestration.md and framework-flow.
-9. **failure_model.md** — Separate file (WorkBrain; template had it inside boundary_log). Template now includes a minimal failure_model.md for consistency with README §5.
+9. **failure_model.md** — Separate file (WorkBrain; template had it inside boundary_log). Template now includes a minimal failure_model.md for consistency with README Section 5.
 
 ---
 
@@ -46,7 +46,7 @@ So that every **new** project created from the template gets the same design:
 | **.cursor/skills/testing/SKILL.md** | Testing skill: read validation task from path, run checks, report pass/fail. |
 | **.cursor/agents/developer.md** | Developer subagent: follows development skill, reads path from invocation. |
 | **.cursor/agents/tester.md** | Tester subagent: follows testing skill, reads path from invocation. |
-| **failure_model.md** | Minimal placeholder for known failure modes (README §5). |
+| **failure_model.md** | Minimal placeholder for known failure modes (README Section 5). |
 
 ---
 
@@ -54,7 +54,7 @@ So that every **new** project created from the template gets the same design:
 
 | File | Change |
 |------|--------|
-| **README_template.md** | Added execution scaffold (step 5: ensure orchestration + skills + agents). Renumbered steps 5→6, 6→7. Added framework-flow link at top. §4: two execution modes (single-spec and orchestrated) with pointer to orchestration.md and framework-flow. |
+| **README_template.md** | Added execution scaffold (step 5: ensure orchestration + skills + agents). Renumbered steps 5→6, 6→7. Added framework-flow link at top. Section 4: two execution modes (single-spec and orchestrated) with pointer to orchestration.md and framework-flow. |
 | **onboarding-agent.md** | Step 8: ensure orchestration.md and .cursor/skills/development and testing exist. Terminal step: create specs, optionally review each spec; then execute **single spec** or **orchestrated** (with pointers to orchestration.md and docs/framework-flow.md). |
 | **task_specifications/README.md** | How to proceed: add optional review step. "Once specs exist": **single spec** or **orchestrated** execution with pointers to orchestration.md and docs/framework-flow.md. |
 
@@ -79,13 +79,30 @@ Further refinements were added to the template so all bootstrapped projects bene
 
 | Refinement | Purpose |
 |------------|---------|
-| **§1a Subagent capability establishment** | Before milestone work, establish whether Developer/Tester can be spawned. If not, notify the human and write notification timestamp; on any later invocation, if 10+ minutes have passed with no acknowledgement, Orchestrator may proceed with fallback (single-agent mode) and must log attempts and fallback use in memory/subagent_capability_and_fallback.md. |
+| **Section 1a (orchestration.md): Subagent capability establishment** | Before milestone work, establish whether Developer/Tester can be spawned. If not, notify the human and write notification timestamp; on any later invocation, if 10+ minutes have passed with no acknowledgement, Orchestrator may proceed with fallback (single-agent mode) and must log attempts and fallback use in memory/subagent_capability_and_fallback.md. |
 | **Manager request-back** | When a Manager agent (e.g. a subagent) cannot spawn Developer or Tester (e.g. nested subagents not supported), the Manager sends a request back to the Orchestrator to spawn the needed agent for that task; the Orchestrator spawns it with the task path. |
-| **§2b Test–implementation separation** | Fixed order per task: **Test Author (Tester) first** — writes acceptance tests from task/spec/intent/context only to evals/acceptance/<id>/; **Developer** — implements without reading evals/acceptance/; **Test Runner (Tester)** — runs pre-written tests only, does not modify tests. Manager does not write tests or implementation. Ensures tests are unbiased (from spec, not from code). |
-| **Acceptance test directory** | evals/acceptance/ (or path in context). Test Author may write; Developer must not read; Test Runner may read and run, must not modify. Documented in context.md §2 and orchestration.md §2b. |
+| **Section 4 (orchestration.md): test-implementation separation** | Fixed order per task: **Test Author (Tester) first** — writes acceptance tests from task/spec/intent/context only to evals/acceptance/<id>/; **Developer** — implements without reading evals/acceptance/; **Test Runner (Tester)** — runs pre-written tests only, does not modify tests. Manager does not write tests or implementation. Ensures tests are unbiased (from spec, not from code). |
+| **Acceptance test directory** | evals/acceptance/ (or path in context). Test Author may write; Developer must not read; Test Runner may read and run, must not modify. Documented in **context.md** (Rules & Conventions) and **orchestration.md** Section 4. |
 | **Development skill** | Explicit rule: Developer must NOT read the acceptance test directory for the current task. |
 | **Testing skill** | Two modes: Test Author (write from spec only, no implementation; write to evals/acceptance/<id>/, then exit) and Test Runner (run pre-written tests only; do not add, change, or remove tests). |
 | **Task types** | memory/tasks/ now includes test-author-<id>.md in addition to <id>.md (implementation) and validate-<id>.md (run tests). |
 | **memory/subagent_capability_and_fallback.md** | New memory file for subagent attempts, notification timestamp, and fallback log (what was attempted, that fallback was used, timing). |
 
 These refinements keep the template project-agnostic; no project-specific names or examples are used.
+
+---
+
+## Items to address: efficiency, consistency, cross-project scale
+
+Tracked backlog from harness review (streamlining for reuse across many projects). Knock these down as part of larger template updates when possible.
+
+| ID | Area | Issue | Direction (not prescriptive) |
+|----|------|--------|--------------------------------|
+| **E1** | Instruction surface | `orchestration.md` is long and dense; every orchestration load burns tokens on every project. | Split or layer: e.g. short **orchestration-quickref.md** for always-on context vs full rules; or fold stable norms into skills and keep orchestration for loop + escalation only. |
+| **E2** | Doc overlap | `boundary_log.md` embeds a failure-model section; `failure_model.md` is separate. Onboarding/step 8 references both patterns. | Single source of truth: e.g. boundary log = surprises only; failure model = diagnostic runbook only—or one file with two clearly separated sections and the other file deprecated with a pointer. |
+| **E3** | Distribution | No versioned “harness core” vs per-repo overlay; updating 100 copies is manual and error-prone. | Consider submodule, package, or “copy manifest” + sync script; document a **harness version** line projects can stamp in README or `HARNESS_VERSION`. |
+| **E4** | Automation | Subagent fallback uses a **10-minute elapsed-time** rule across invocations; awkward for CI and non-interactive runs. | Explicit override (env var, `memory/execution_config.md`, or intent flag): e.g. `execution: subagents \| single-agent \| auto` without wall-clock wait. |
+| **C1** | Naming consistency | Boot instructions cite **README Section 0** while the template file is **`README_template.md`** until renamed in a spawned project. | One canonical name in instructions post-copy, or explicit “after copy, rename to README.md” in Section 0. |
+| **C2** | Onboarding vs files | Step 8 ensures `failure_model.md`; `boundary_log.md` also carries failure-mode content—risk of drift or duplicate maintenance. | Align step 8 and file templates with the resolution chosen for **E2**. |
+
+**Status:** All items above are *open* until addressed in the template and reflected in dependent docs (`onboarding-agent.md`, `README_template.md`, `framework-flow.md` as needed).

@@ -24,7 +24,7 @@
 
 ## 4. Sub-Task Decomposition
 - *How a planner agent should break this task down into verifiable chunks of < 2 hrs.*
-- **Role split:** Per orchestration §2b, the order per task is **Test Author (Tester) → Developer → Test Runner (Tester)**. The Tester in Test Author mode writes acceptance tests from the spec only to evals/acceptance/<task_id>/ before any implementation. The Developer implements from task/spec only and **must not read** evals/acceptance/. The Tester in Test Runner mode runs the pre-written tests only and does not modify them. The Manager does not write tests or implementation; only assigns these tasks.
+- **Role split:** Per **orchestration.md** Section 4, the order per task is **Test Author (Tester) -> Developer -> Test Runner (Tester)**. The Tester in Test Author mode writes acceptance tests from the spec only to evals/acceptance/<task_id>/ before any implementation. The Developer implements from task/spec only and **must not read** evals/acceptance/. The Tester in Test Runner mode runs the pre-written tests only and does not modify them. The Manager does not write tests or implementation; only assigns these tasks.
 - **Step 1:** [First verifiable chunk]
 - **Step 2:** [Second verifiable chunk]
 
