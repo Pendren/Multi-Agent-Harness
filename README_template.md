@@ -91,12 +91,15 @@ Optional **review threshold** line at the top of a spec file (e.g. Autonomous / 
 
 ---
 
-## 5. Failure Model Maintenance (Observability Layer)
-*The Auditing Layer: Anticipating specific failures instead of generic skepticism.*
+## 5. Observability and evaluation (Observability Layer)
+*Tests, regressions, and explicit failure models.*
 
-### `evals/` Directory
-- **Goal:** 3-5 standard test cases (known good inputs and outputs) per critical agent function. Run these systematically after every model update to catch regressions and prevent the "80% problem".
+### `evals/` directory
+- **Harness path (orchestrated execution):** When you use **`orchestration.md`**, each milestone **Test Author** step writes executable tests under **`evals/acceptance/<spec-stem>/`** (or a path overridden in **`context.md`**). The **stem** matches the **`NN_ST-xx_*.md`** spec filename without extension. **Test Author** uses **Evaluation Design** + **Acceptance Criteria** from the spec only; **Developer** must not read that directory for the active milestone; **Test Runner** runs tests and does not modify them. Order per milestone: Test Author -> Developer -> Test Runner. See **`orchestration.md`** Section 4, **`context.md`** (Rules & conventions), and **`.cursor/skills/testing/`**.
+- **Specification phase:** **`spec-engineer.md`** defines **`EV-xx`** cases in **Evaluation Design**; **materializing** those tests into **`evals/`** is **execution** work unless the human scoped test scaffolding as its own **`ST-xx`**.
+- **Optional:** You may also keep **project-level** regression or smoke suites (e.g. after model or dependency upgrades) elsewhere under **`evals/`** with clear naming so they are not confused with the harness **acceptance** tree.
 
 ### `failure_model.md`
-- **Goal:** A codified mental model of *how* the agent currently fails.
-- **Content:** Map specific failures (e.g., "Agent excels at pandas transforms but frequently drops implicit nulls"). Build specific programmatic checks for these failures rather than relying on human due diligence.
+- **Goal:** A codified mental model of *how* the agent or system fails on this project - so you can add targeted checks instead of generic doubt.
+- **Content:** Map concrete failure modes; link to **`boundary_log.md`** when a surprise reveals a pattern. Prefer **programmatic** or repeatable checks where possible.
+
