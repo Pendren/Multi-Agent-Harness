@@ -19,7 +19,7 @@ If you are an AI agent analyzing this document to stand up a new instance of thi
 
 **[Stack & Setup Details to be completed by user prior to handoff]**
 - **Language/Framework:** [e.g., Python / TypeScript / MCP Server]
-- **Environment:** [e.g., Docker Desktop, n8n, OpenClaw]
+- **Environment:** [e.g., Docker Desktop, WSL, cloud sandbox, CI runner]
 - **Operational Pod Structure:** [Specify if this is a "Team of 1" (single frontier operator) or "Team of 5" (1 lead operator + executors)]
 
 ### For users: How to answer onboarding questions
@@ -87,7 +87,7 @@ Authoritative detail is in **`spec-engineer.md`** **Document template**. Summary
 ### Execution modes
 With Intent, Context, **`task_breakdown.md`**, and **formal specs** under **`task_specifications/`** (from **`spec-engineer.md`**), you can run work in two ways:
 
-- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_ST-01_scaffold-repo-layout.md`."* (Use your repo's actual **`NN_ST-xx_*.md`** path.) The agent does that spec's work (and may use the development/testing skills in single-agent mode).
+- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_ST-01_sample-milestone.md`."* (Use your repo's actual **`NN_ST-xx_*.md`** path.) The agent does that spec's work (and may use the development/testing skills in single-agent mode).
 - **Orchestrated execution:** Multi-milestone, with memory, Developer/Tester roles (or subagents), and **parallel** tasks when dependencies allow. Example prompt: *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* The agent builds the roadmap **only** from milestone spec files (**`NN_ST-xx_*.md`**, per **`orchestration.md`**), writes tasks to **`memory/tasks/`**, invokes Developer and Tester with task paths, and runs the Manager loop. Same prerequisite: specs must already exist from **`spec-engineer.md`**. See **`orchestration.md`** and **`docs/framework-flow.md`**.
 
 ### Leverage calibration

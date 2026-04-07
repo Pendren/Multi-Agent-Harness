@@ -2,7 +2,7 @@
 
 **Canonical contract:** **`spec-engineer.md`** defines section order, heading names, completion gates, staging, and reconcile rules. If anything here disagrees, follow **`spec-engineer.md`**.
 
-**Filename for real specs:** `NN_ST-xx_short-title.md` (e.g. `01_ST-01_scaffold-repo-layout.md`). See **`spec-engineer.md`** **Outputs** - **Directory and naming**.
+**Filename for real specs:** `NN_ST-xx_short-title.md` (e.g. `01_ST-01_sample-milestone.md`). See **`spec-engineer.md`** **Outputs** - **Directory and naming**.
 
 **Review threshold (optional):** [Autonomous (0%) | Sampled (10%) | Full (100%)]
 

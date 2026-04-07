@@ -40,7 +40,7 @@
 - Write completed specs under **`task_specifications/`**.
 - **File name pattern:** `NN_ST-xx_short-title.md` where `NN` is zero-padded sort order (`01`, `02`, ...) matching execution order, **`ST-xx`** matches the ID from `task_breakdown.md`, and `short-title` is a lowercase hyphenated slug.
 
-Example: `01_ST-01_scaffold-repo-layout.md`
+Example: `01_ST-01_sample-milestone.md`
 
 ### Renumbering and filename alignment
 

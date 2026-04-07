@@ -72,7 +72,7 @@ For **each** spec file in roadmap order, repeat the following **three** steps. *
 
 ### Step A - Test Author (Tester subagent)
 
-1. Write **`memory/tasks/test-author-<spec-stem>.md`** (e.g. `test-author-01_ST-01_scaffold-repo-layout`) containing:
+1. Write **`memory/tasks/test-author-<spec-stem>.md`** (e.g. `test-author-01_ST-01_sample-milestone`) containing:
    - **Path to the spec file** (the single source of truth).
    - Instruction: Write executable tests **strictly** from that spec's **`Evaluation Design`** (all `EV-xx` cases) and **`Acceptance Criteria`**, plus **`intent.md` / `context.md`** only for **global** environment or policy constraints. **Do not** use **Self-Contained Problem Statement** or **Constraint Architecture** as sources for tests (avoids encoding implementation-shaped hints). **Do not** read implementation or non-test code.
 2. **Invoke Tester** with that task path.

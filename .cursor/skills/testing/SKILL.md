@@ -12,7 +12,7 @@ Use this skill when you are the **Tester** and have been given a **task path** i
 
 ## First step: get your task
 
-1. **Read your task from the path or id given in the invocation.** The Manager will say something like "Your task is in memory/tasks/test-author-01_ST-01_scaffold-repo-layout.md" or "Your validation task is in memory/tasks/validate-01_ST-01_scaffold-repo-layout.md."
+1. **Read your task from the path or id given in the invocation.** The Manager will say something like "Your task is in memory/tasks/test-author-01_ST-01_sample-milestone.md" or "Your validation task is in memory/tasks/validate-01_ST-01_sample-milestone.md."
 2. **If no path or id was given,** fall back to **memory/current_validation.md** (sequential mode).
 3. Open that file. It contains what you must do and where to write or run tests (e.g. **evals/acceptance/<spec-stem>/** - stem matches the **`NN_ST-xx_*.md`** spec basename without `.md`).
 
@@ -20,19 +20,19 @@ Use this skill when you are the **Tester** and have been given a **task path** i
 
 ## Mode A: Test Author (task path contains "test-author")
 
-**When your task is a test-author task** (e.g. memory/tasks/test-author-01_ST-01_scaffold-repo-layout.md):
+**When your task is a test-author task** (e.g. memory/tasks/test-author-01_ST-01_sample-milestone.md):
 
 - **Use only:** the task description, the spec (Acceptance Criteria, Evaluation Design / **EV-xx**), intent.md, and context.md. **Do NOT read any implementation**, source code for the feature, or Developer output. No implementation exists yet when you run.
-- **Write** acceptance tests that verify the spec's acceptance criteria and **Evaluation Design**. Write them to the **acceptance test directory** given in the task (e.g. **evals/acceptance/01_ST-01_scaffold-repo-layout/**). Create the directory if needed.
+- **Write** acceptance tests that verify the spec's acceptance criteria and **Evaluation Design**. Write them to the **acceptance test directory** given in the task (e.g. **evals/acceptance/01_ST-01_sample-milestone/**). Create the directory if needed.
 - **Then exit.** Do not run the tests; do not read implementation. Your only output is the test files in the acceptance test directory.
 
 ---
 
 ## Mode B: Test Runner (task path contains "validate")
 
-**When your task is a validation task** (e.g. memory/tasks/validate-01_ST-01_scaffold-repo-layout.md):
+**When your task is a validation task** (e.g. memory/tasks/validate-01_ST-01_sample-milestone.md):
 
-- **Run** the pre-written tests in the acceptance test directory for this task (e.g. **evals/acceptance/01_ST-01_scaffold-repo-layout/**). Do **not** add, change, or remove any tests. Your job is to execute the existing tests and report results.
+- **Run** the pre-written tests in the acceptance test directory for this task (e.g. **evals/acceptance/01_ST-01_sample-milestone/**). Do **not** add, change, or remove any tests. Your job is to execute the existing tests and report results.
 - **Judge pass/fail** against the spec's Acceptance Criteria only. If a criterion fails, say which one and why (with evidence).
 - **Do not modify the implementation** unless the validation task explicitly asks you to fix and re-run. Do not modify the test files under any circumstance.
 
