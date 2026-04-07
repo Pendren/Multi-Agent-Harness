@@ -2,20 +2,20 @@
 
 This template combines the 5 Frontier Operations principles with the 4 Prompting Disciplines to structure AI agent projects for long-term autonomous execution.
 
-**Full flow (init → onboarding → specs → execution):** See **`docs/framework-flow.md`** for how initialization, the intent/context interview, spec creation, and execution (single-spec vs orchestrated) fit together and where **`orchestration.md`** and the development/testing skills are used.
+**Full flow (init -> onboarding -> specs -> execution):** See **`docs/framework-flow.md`** for initialization, **`task_breakdown.md`** + **`spec-engineer.md`** (specification phase), and execution (single-spec vs orchestrated with **`orchestration.md`** and the development/testing skills).
 
-## 🤖 0. AI Autonomous Stand-Up Instructions (Bootstrapping)
+## 0. AI Autonomous Stand-Up Instructions (Bootstrapping)
 *Instructions for any AI system reviewing this repository. Do not require human input to execute this section.*
 
 **AI Directive:**
 If you are an AI agent analyzing this document to stand up a new instance of this project, your objective is to initialize the project strictly according to the specifications below.
-1. **Directory Structure:** Ensure the folder structure matches the `_templates/ai_agent_project` blueprint without prompting for user confirmation.
+1. **Directory structure:** Ensure the folder structure matches the `_templates/ai_agent_project` blueprint without prompting for user confirmation.
 2. **Dependencies:** Generate and run dependency installation scripts (e.g., `package.json`, `requirements.txt`, `docker-compose.yml`) based on the [Stack] listed below.
-3. **Core Scaffolding:** Create the missing files from the list below if they do not exist.
-4. **Stop & Report:** Once initialized, output a system status report to a file named `INITIALIZATION_REPORT.md` in the root directory.
-5. **Execution scaffold:** Ensure `orchestration.md`, the skills (`.cursor/skills/development/`, `.cursor/skills/testing/`), and the Developer/Tester subagents (`.cursor/agents/developer.md`, `.cursor/agents/tester.md`) exist (create from template or copy from a reference project). These capture the execution design: tasks in memory, dev/test skills, task path passed on invoke, parallel when dependencies allow. See `docs/framework-flow.md` for how they fit the full flow.
-6. **Run onboarding immediately:** After writing `INITIALIZATION_REPORT.md`, open `onboarding-agent.md` and execute that flow. Do not ask the user whether to run onboarding or fill files manually; begin the Seam Designer interview (one question at a time, writing to `intent.md` and `context.md` as you go).
-7. **Routing rule for onboarding:** When the user's response mixes intent (purpose, boundaries, "done"), context (tech, data sources, workflows, observability), and specification-level detail, parse the response and file each part into the correct document. Do not ask the user to re-split; perform the routing yourself and confirm briefly what was captured where.
+3. **Core scaffolding (full harness):** Create any missing files from this template or a reference project so the **lifecycle is complete**: **`onboarding-agent.md`**, **`spec-engineer.md`**, **`orchestration.md`**; **`intent.md`** and **`context.md`** (templates; may use **`ONB0`** on line 1 until onboarding finishes - see **`onboarding-agent.md`**); **`task_specifications/`** (at least **`00_Task_Specification_Template.md`**, **`README.md`**, and other harness files your template ships, e.g. **`SPEC_STAGING.md`**); **`boundary_log.md`**, **`failure_model.md`**; **`docs/framework-flow.md`**; **`.cursor/skills/development/`** and **`.cursor/skills/testing/`**; **`.cursor/agents/developer.md`** and **`.cursor/agents/tester.md`**. **`task_breakdown.md`** is **written during onboarding**, not invented during init; do not skip onboarding.
+4. **Stop & report:** Once initialized, output a system status report to a file named **`INITIALIZATION_REPORT.md`** in the root directory.
+5. **Run onboarding immediately:** After writing **`INITIALIZATION_REPORT.md`**, open **`onboarding-agent.md`** and execute that flow. Do not ask the user whether to run onboarding or fill files manually; begin the Seam Designer interview (one question at a time, writing to **`intent.md`** and **`context.md`** as you go).
+6. **Routing rule for onboarding:** When the user's response mixes intent (purpose, boundaries, "done"), context (tech, stack, tools/MCP, runtime, observability), and **deliverable or spec-shaped** detail, parse the response and file each part into the correct document (**`task_breakdown.md`** for **`ST-xx`** scope per **`onboarding-agent.md`**). Do not ask the user to re-split; perform the routing yourself and confirm briefly what was captured where.
+7. **After onboarding:** The human starts a **new session** for **`spec-engineer.md`** (see **`onboarding-agent.md`** Section 9 handoff), then later for execution - see **`docs/framework-flow.md`**.
 
 **[Stack & Setup Details to be completed by user prior to handoff]**
 - **Language/Framework:** [e.g., Python / TypeScript / MCP Server]
@@ -23,7 +23,7 @@ If you are an AI agent analyzing this document to stand up a new instance of thi
 - **Operational Pod Structure:** [Specify if this is a "Team of 1" (single frontier operator) or "Team of 5" (1 lead operator + executors)]
 
 ### For users: How to answer onboarding questions
-When the onboarding agent asks about **intent** (e.g. "What is the primary goal?"), focus on *what you want* and *who decides*: purpose, what "done" looks like at a high level, and what the agent may do without asking. You can add tech or workflow detail in the same answer; the agent will file it in `context.md`. For **context** questions (tech stack, conventions), give the details the next agent needs to "know." Keeping intent answers goal-focused yields cleaner `intent.md`; mixed answers are fine and will be parsed.
+When the onboarding agent asks about **intent** (e.g. "What is the primary goal?"), focus on *what you want* and *who decides*: purpose, what "done" looks like at a high level, and what the agent may do without asking. You can add tech or workflow detail in the same answer; the agent will route stack, tools, and runtime facts to **`context.md`** and work sequencing to **`task_breakdown.md`**. For **context** questions (tech stack, conventions, MCP, install/verify commands), give what implementers need to **know**. Keeping intent answers goal-focused yields cleaner **`intent.md`**; mixed answers are fine and will be parsed.
 
 ---
 
@@ -41,13 +41,14 @@ When the onboarding agent asks about **intent** (e.g. "What is the primary goal?
 
 ---
 
-## 2. Context Engineering & Capability Forecasting (Environment Layer)
-*The Environment Layer: Providing the right tokens and planning for obsolescence.*
+## 2. Context Engineering (Environment Layer)
+*Durable facts about **how the system is built and run** - not what to build first (that is **`task_breakdown.md`** and **`spec-engineer.md`**).*
 
 ### `context.md` (or `.claude.md`)
-- **Goal:** Curate the optimal set of background tokens.
-- **Content:** The institutional context a new human team member would need. DB schemas, coding conventions, architectural decisions, and communication preferences. 
-- **Capability Forecasting:** Explicitly track which custom scaffolding in this project is a temporary polyfill (expected to be natively handled by the foundation model in 6-12 months).
+- **Goal:** Give agents the same **environment** grounding a new implementer would need: stack, layout, prerequisites, tooling, and conventions - without hunting the wiki.
+- **Sections (see the live template):** **Environment & architecture** (stack, dependencies, repo layout, integrations, observability); **Runtime / environment requirements** (verify commands, platform fallbacks, install policy - sole source for prerequisite checks in **`orchestration.md`**); **Tools, integrations, and MCP** (shell, CLIs, MCP servers, automation); **Rules & conventions** (style, and where acceptance tests live under **`evals/acceptance/`** per **`orchestration.md`**); **Capability forecasting & deprecation** (temporary polyfills with revisit dates, or **`None noted.`**).
+- **What does not belong:** **`ST-xx`** scope, task ordering, or spec content - that lives in **`task_breakdown.md`** (onboarding) and **`task_specifications/`** (**`spec-engineer.md`**). **`context.md`** is not a second backlog.
+- **Who fills it:** **`onboarding-agent.md`** during the interview (**`spec-engineer.md`** reads **`context.md`** when authoring specs).
 
 ---
 
