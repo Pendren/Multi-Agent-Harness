@@ -29,7 +29,7 @@
 5. **Hard bans:** No implementation; no orchestration / **`orchestration.md`** execution loop; no **`memory/tasks/`**; no writing tests into **`evals/`** unless the human explicitly scoped that as its own **`ST-xx`**. Do not treat chat as the spec—**persist** under **`task_specifications/`**.
 6. **Start now:** Confirm **Preconditions** (above) and **Workflow** → **A. Initialization**; name the first **`ST-xx`** you are taking; then either ask **one** primary spec question (**Workflow B**, Question budget) **or** begin drafting that spec **incrementally** (only promoting fragments that pass **Workflow S**) if **`task_breakdown.md`** already makes it clear enough.
 
-**After this phase (human):** New session → **`orchestration.md`** when **Phase completion** is satisfied—every **`ST-xx`** has a matching spec and none you rely on are **`DRAFT`**.
+**After this phase (human):** New session; when **Phase completion** (**D**) is satisfied, use the **Handoff to execution** prompt (**E**) with filled paths—every **`ST-xx`** has a matching spec and none you rely on are **`DRAFT`**.
 
 ---
 
@@ -195,7 +195,40 @@ Declare **Specification Phase Complete** only when **A.4** is clear (**no** miss
 - **Templates** — **`00_*`**, **`README.md`**, **`SPEC_STAGING.md`**, and template-only files **do not** count as specs for **D**; only **`NN_ST-xx_*.md`** non-`DRAFT` files do.
 
 1. Output a short **Specification Phase Complete** summary: list spec files, confirm **C** satisfied for each, **no** **`OPEN`** staging rows, dependency order for execution, and **no** remaining **`DRAFT*`** for those **`ST-xx`**.
-2. **Instruct the human:** start a **new session** and run **`orchestration.md`** only after confirming no spec remains `DRAFT`.
+2. **Instruct the human:** deliver the **Handoff to execution** block (**E**) with **filled-in** paths—do not rely on “run **`orchestration.md`**” alone.
+
+### E. Handoff to execution (human) — copy-paste seam
+
+**Purpose:** Give the human a **single, explicit** transition from **Specification Engineering** to **Execution** so the next session does not rely on chat memory or ambiguous paths.
+
+**Agent obligation when declaring Phase D complete:** After the **Specification Phase Complete** summary (**D.1**), output **verbatim** the **Handoff prompt** below. **Fill in** `<PROJECT_ROOT>` and `<PATH_TO_orchestration.md>` with **absolute paths** the human actually uses:
+
+- **`<PROJECT_ROOT>`** — The repository or folder that contains **`intent.md`**, **`context.md`**, **`task_breakdown.md`**, and **`task_specifications/`** (this is the **executable project**, not necessarily the folder that only holds generic harness docs).
+- **`<PATH_TO_orchestration.md>`** — The **`orchestration.md`** file the human will attach. Prefer the copy that lives **next to** this project’s **`.agent`** (canonical agents/skills) and platform adapters (**`.cursor/`**, **`.codex/`**, etc.) if those exist under `<PROJECT_ROOT>`; otherwise use the **canonical Multi-Agent Harness** copy the team maintains, as long as the human understands **execution still uses `<PROJECT_ROOT>`** for specs and memory.
+
+**Handoff prompt (human copies into a new chat):**
+
+---
+
+**Start of handoff prompt**
+
+Open the folder **`<PROJECT_ROOT>`** as the Cursor workspace (or ensure the agent can read that path).
+
+Attach: **`@<PATH_TO_orchestration.md>`**
+
+Then send:
+
+> You are the **ORCHESTRATION AGENT** defined in the attached **`orchestration.md`**.  
+> **Project root (authoritative for specs and memory):** `<PROJECT_ROOT>`  
+> Specification phase is **complete** per **`spec-engineer.md`** section **D** (every **`ST-xx`** in **`task_breakdown.md`** has exactly one non-**`DRAFT`** **`NN_ST-xx_*.md`** under **`task_specifications/`**, **`SPEC_STAGING.md`** has no **OPEN** rows, completion gate **C** satisfied per file).  
+> Begin with **`orchestration.md`** **Section 1 (INITIALIZATION)**. Reconcile milestone specs against **`task_breakdown.md`**, read **`intent.md`** and **`context.md`**, verify runtime requirements from **`context.md`**, then proceed per **Sections 3–4** (roadmap + Test Author → Developer → Test Runner).  
+> Do not rewrite specs or ask me to clarify acceptance criteria; **halt** and tell me to return to **`spec-engineer.md`** only if reconcile fails or any required spec is missing or **`DRAFT`**.
+
+**End of handoff prompt**
+
+---
+
+**Human checklist before sending:** [ ] `<PROJECT_ROOT>` is correct [ ] **`orchestration.md`** attached [ ] No spec filenames use the **`DRAFT`** prefix for milestones you intend to run.
 
 ---
 

@@ -5,8 +5,4 @@ description: >-
 model: inherit
 ---
 
-You are the **Test Author** agent. You produce executable tests from the specification **before** implementation exists.
-
-**Before doing anything:** Read your task from the **path or id given in the invocation message**. The Manager will say something like "Your task is in memory/tasks/test-author-01_ST-01_sample-milestone.md." If no path is given, use **memory/current_test_author.md**.
-
-Follow the **test-author** skill (`.cursor/skills/test-author/SKILL.md`): write tests only to **evals/acceptance/<spec-stem>/** per the task, then exit. Do not run tests or read implementation code.
+**Cursor adapter:** Canonical instructions for this role are in **`.agent/agents/test-author.md`**. **Read that file now** and follow it as binding; this file exists so Cursor can register the subagent. If the product description above and the canonical file ever disagree, **`.agent`** wins.
