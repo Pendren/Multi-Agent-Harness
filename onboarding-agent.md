@@ -165,7 +165,13 @@ Ensure **`boundary_log.md`** exists. Headers only + one line: *Surprises logged 
 
 **Not allowed inside a paragraph:** three acceptance sentences, test cases, Must/Must-not lists - **spec-engineer** adds those.
 
-**Before Section 9:** Move every **Parking** line into a real **`ST-xx`** or **delete** if duplicate; **`routing unclear`** rows either resolved or carried as a single `ST-xx` scope with `Depends on:` TBD - do not ship an onboarding “complete” with an orphaned Parking backlog unless the human accepts it.
+**Before Section 9:** Move every **Parking** line into a real **`ST-xx`** or **delete** if duplicate—**except** the single allowed **`[harness-handoff]`** bullet (see below). **`routing unclear`** rows either resolved or carried as a single `ST-xx` scope with `Depends on:` TBD - do not ship an onboarding “complete” with an orphaned Parking backlog unless the human accepts it.
+
+**Harness handoff via Parking (mandatory):** Add **exactly one** bullet under **`## Parking`** that **starts with** **`[harness-handoff]`** and matches the **skeleton** line below (verbatim except a one-word project name tweak if needed).
+
+**Purpose:** Capture eval-authorship rules where **`spec-engineer.md`** already looks (**`task_breakdown.md`**), without putting “write evals” instructions in the Section 9 chat prompt for non-spec agents. **Onboarding does not author `evals/`**—only this reminder line.
+
+**Section 9 gate:** **`[harness-handoff]`** does **not** count as “unresolved Parking.” All **other** Parking bullets must still be folded or deleted before handoff.
 
 **Skeleton (adapt titles and count):**
 
@@ -182,7 +188,8 @@ _Input for spec-engineer.md - not executable specs._
 <One paragraph. Optional: Depends on: ST-xx>
 
 ## Parking (optional)
-<Bullets: deferred detail not yet folded into ST-xx, or `routing unclear` lines from Section 1 C. Reconcile before finalizing the file.>
+- [harness-handoff] Specification Engineering only (spec-engineer.md): complete Workflow ENV (evals/environment/ from context.md) before authoring Section 5 (Evaluation Design) for any ST-xx. Do not create or edit anything under evals/ during onboarding or outside spec-engineer.md during the Specification phase. Remove this bullet when Workflow ENV is satisfied (per spec-engineer.md). Acceptance test implementation under evals/acceptance/ is orchestration / Test Author after specs exist—not part of onboarding.
+- _Other bullets: deferred detail not yet folded into ST-xx, or routing unclear lines from Section 1 C. Reconcile before finalizing the file—except leave [harness-handoff] until spec-engineer clears it._
 
 ## Specification resume (optional)
 _Reserved for Specification Engineering (crash recovery). Do not edit during onboarding._
@@ -214,7 +221,7 @@ Repeat until **every** `ST-xx` has **all six false**.
 
 ### 9. Terminal handoff (mandatory)
 
-When **`intent.md`**, **`context.md`**, **`boundary_log.md`**, and **`task_breakdown.md`** exist; every **`ST-xx`** passes **T1-T6**; and **`task_breakdown.md`** has **no unresolved Parking** (per Section 8):
+When **`intent.md`**, **`context.md`**, **`boundary_log.md`**, and **`task_breakdown.md`** exist; every **`ST-xx`** passes **T1-T6**; and **`task_breakdown.md`** has **no unresolved Parking** except the allowed **`[harness-handoff]`** line (per Section 8):
 
 0. **Remove `ONB0` (mandatory):** For **`intent.md`** and **`context.md`**, if **line 1** is exactly **`ONB0`** (no leading spaces), delete that line. If line 1 is already something else, leave unchanged. Do this **before** the handoff output below.
 
@@ -233,18 +240,18 @@ Follow Multi-Agent Harness/spec-engineer.md from the first line through completi
 
 This workspace already has onboarding outputs: intent.md, context.md, boundary_log.md, and task_breakdown.md (use the paths where they actually live in this project). Attach or reference that spec-engineer.md file for the agent if your tool requires it.
 
-Confirm the preconditions in spec-engineer.md, state which ST-xx you are taking first, then continue per that file until every ST-xx has a matching specification file under task_specifications/.
+Confirm the preconditions in spec-engineer.md, read task_breakdown.md ## Parking for any [harness-handoff] line (eval authorship: Specification phase only), state which ST-xx you are taking first, then continue per that file until every ST-xx has a matching specification file under task_specifications/.
 
-Do not implement product code, write tests into evals/, or author memory/tasks prompts in this phase unless spec-engineer.md explicitly scopes that work as its own ST-xx.
+Do not implement product code or author memory/tasks prompts in this phase unless spec-engineer.md explicitly scopes that work as its own ST-xx. Anything under evals/ during the Specification phase is governed solely by spec-engineer.md (Workflow ENV and spec content—not ad-hoc test files from this chat).
 ```
 
 ---
 
 ## Non-responsibilities
 
-- No formal acceptance criteria, eval cases, or orchestration design with the user here.
+- No formal acceptance criteria, eval cases, or orchestration design with the user here. **Exception:** the single **`[harness-handoff]`** Parking bullet (Section 8)—**text only**, **no** files under **`evals/`**.
 - No **`task_specifications/*.md`** authorship - **`spec-engineer.md`** only.
 - No **`memory/tasks/`** or subagent instructions.
 - No **`## Specification resume`** content beyond the optional **placeholder line** in Section 8—**not** crash notes, active **`ST-xx`**, or staging ids (that is **Specification Engineering** only).
 
-**Done when:** **`intent.md`** and **`context.md`** are complete and **line 1** is not **`ONB0`**; **`boundary_log.md`** scaffolded; **`task_breakdown.md`** lists all **`ST-xx`** with **`Depends on:`** where needed; **every ST passes T1-T6**; **Parking** empty or folded; **Section 9** terminal handoff delivered.
+**Done when:** **`intent.md`** and **`context.md`** are complete and **line 1** is not **`ONB0`**; **`boundary_log.md`** scaffolded; **`task_breakdown.md`** lists all **`ST-xx`** with **`Depends on:`** where needed; **every ST passes T1-T6**; **Parking** has only the allowed **`[harness-handoff]`** bullet plus any lines **folded** into **`ST-xx`** (no other unresolved Parking); **Section 9** terminal handoff delivered.

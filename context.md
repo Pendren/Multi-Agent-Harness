@@ -28,7 +28,7 @@ ONB0
 |-------------|---------------------------|--------------------|-------------------------------|
 | [Example: Python 3.x] | [e.g. `python --version` or `py --version`] | [e.g. On Windows: if `python` not found, use `py`] | [yes / no / suggest only] |
 
-- **When to verify:** **`orchestration.md`** at initialization; Developer, Test Author, and Test Runner skills when running commands (try documented fallbacks before concluding a requirement is missing).
+- **When to verify:** **`spec-engineer.md`** **Workflow ENV** authors **`evals/environment/`** (manifest + entry script) from this table and **`Tools/MCP`**—**before** milestone **Evaluation Design**—and runs it when a shell is available. **`orchestration.md`** **Section 1** runs that same entry (if present) **before** milestone **Test Author**; Developer, Test Author, and Test Runner skills apply fallbacks from this table when running commands (try documented fallbacks before concluding a requirement is missing).
 
 ---
 
