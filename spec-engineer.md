@@ -244,10 +244,10 @@ Attach: **`@<PATH_TO_orchestration.md>`**
 
 Then send:
 
-> You are the **ORCHESTRATION AGENT** defined in the attached **`orchestration.md`**.  
-> **Project root (authoritative for specs and memory):** `<PROJECT_ROOT>`  
-> Specification phase is **complete** per **`spec-engineer.md`** section **D** (every **`ST-xx`** in **`task_breakdown.md`** has exactly one non-**`DRAFT`** **`NN_ST-xx_*.md`** under **`task_specifications/`**, **`SPEC_STAGING.md`** has no **OPEN** rows, completion gate **C** satisfied per file).  
-> Begin with **`orchestration.md`** **Section 1 (INITIALIZATION)**. Reconcile milestone specs against **`task_breakdown.md`**, read **`intent.md`** and **`context.md`**, verify runtime requirements from **`context.md`**, **run `evals/environment/`** per **`orchestration.md`** if present, then proceed per **Sections 3–4** (roadmap + Test Author → Developer → Test Runner).  
+> You are the **ORCHESTRATION AGENT** defined in the attached **`orchestration.md`**.
+> **Project root (authoritative for specs and memory):** `<PROJECT_ROOT>`
+> Specification phase is **complete** per **`spec-engineer.md`** section **D** (every **`ST-xx`** in **`task_breakdown.md`** has exactly one non-**`DRAFT`** **`NN_ST-xx_*.md`** under **`task_specifications/`**, **`SPEC_STAGING.md`** has no **OPEN** rows, completion gate **C** satisfied per file).
+> Begin with **`orchestration.md`** **Section 1 (INITIALIZATION)**. Reconcile milestone specs against **`task_breakdown.md`**, read **`intent.md`** and **`context.md`**, verify runtime requirements from **`context.md`**, **run `evals/environment/`** per **`orchestration.md`** if present, then proceed per **Sections 3–4** (roadmap + Test Author → Developer → Test Runner).
 > Do not rewrite specs or ask me to clarify acceptance criteria; **halt** and tell me to return to **`spec-engineer.md`** only if reconcile fails or any required spec is missing or **`DRAFT`**.
 
 **End of handoff prompt**

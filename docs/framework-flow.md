@@ -6,6 +6,8 @@ This document describes how the project moves from a blank (or templated) repo t
 
 ## Overview
 
+For a blank or newly copied project, the expected entry point is **`README_template.md` Section 0**. Loading **`onboarding-agent.md`** directly is valid only after the harness scaffold already exists, or when the user intentionally wants the lightweight onboarding-only path.
+
 | Phase | What happens | Who drives | Output |
 |-------|----------------|------------|--------|
 | **1. Initialization** | Directory structure, dependencies, scaffold files | AI (bootstrapping instructions in **README_template.md** Section 0) | INITIALIZATION_REPORT.md; triggers onboarding |
@@ -20,7 +22,7 @@ This document describes how the project moves from a blank (or templated) repo t
 ## Phase 1: Initialization
 
 - **Trigger:** AI (or user) runs the bootstrapping instructions in **README_template.md** Section 0 (AI Autonomous Stand-Up).
-- **Actions:** Ensure directory structure, install dependencies, create missing scaffold files (intent.md, context.md, onboarding-agent.md, **spec-engineer.md**, task_specifications/00_Task_Specification_Template.md, boundary_log.md, failure_model.md, **orchestration.md**, **canonical agents and skills under `.agent/agents/` and `.agent/skills/`**, plus **Cursor adapters** **`.cursor/skills/development/`**, **`.cursor/skills/test-author/`**, **`.cursor/skills/test-runner/`**, **`.cursor/agents/developer.md`**, **`.cursor/agents/test-author.md`**, and **`.cursor/agents/test-runner.md`**). Write **INITIALIZATION_REPORT.md**.
+- **Actions:** Ensure directory structure, install dependencies, create missing scaffold files (intent.md, context.md, onboarding-agent.md, **spec-engineer.md**, **task_specifications/00_Task_Specification_Template.md**, **task_specifications/README.md**, **task_specifications/SPEC_STAGING.md**, **evals/** placeholders or guidance, boundary_log.md, failure_model.md, **orchestration.md**, **docs/framework-flow.md**, **canonical agents and skills under `.agent/agents/` and `.agent/skills/`**, **Codex adapters/placeholders under `.codex/`**, plus **Cursor adapters** **`.cursor/skills/development/`**, **`.cursor/skills/test-author/`**, **`.cursor/skills/test-runner/`**, **`.cursor/agents/developer.md`**, **`.cursor/agents/test-author.md`**, and **`.cursor/agents/test-runner.md`**). Write **INITIALIZATION_REPORT.md**.
 - **Next:** **Immediately** run the onboarding flow (open onboarding-agent.md and execute). Do not ask the user whether to run onboarding; begin the interview.
 
 **Template capture:** The template (or init) must include **orchestration.md** and the execution skills (**development**, **test-author**, **test-runner**) so every new project gets the same execution design (memory/tasks, parallel when safe).
@@ -29,7 +31,7 @@ This document describes how the project moves from a blank (or templated) repo t
 
 ## Phase 2: Onboarding (interview → intent + context)
 
-- **Trigger:** Right after init (or when the user loads onboarding-agent.md).
+- **Trigger:** Right after init, or when the user loads onboarding-agent.md for an already-scaffolded project.
 - **Driver:** **onboarding-agent.md** ("Seam Designer"): one question at a time, mirror back at section boundaries, **file progressively** to intent.md and context.md (do not wait until the end).
 - **Routing:** If the user's answer mixes intent (goal, "done," controls, trade-offs, escalation), context (tech, data sources, workflows), and spec-level detail, **parse and route** each part to the correct document. Confirm briefly what was captured where.
 - **Intent:** Two questions (Q1: goal, "done," controls; Q2: trade-offs, escalation). Mirror back after each; write Summary at top of intent.md after Q2.

@@ -182,6 +182,6 @@ See **`.agent/README.md`** for the adapter pattern.
 
 ## Phase placement in the lifecycle
 
-1. **Onboarding** -> `onboarding-agent.md` -> **`intent.md`**, **`context.md`**, **`task_breakdown.md`**.  
-2. **Specification Engineering** -> `spec-engineer.md` -> **`task_specifications/*.md`**.  
+1. **Onboarding** -> `onboarding-agent.md` -> **`intent.md`**, **`context.md`**, **`task_breakdown.md`**.
+2. **Specification Engineering** -> `spec-engineer.md` -> **`task_specifications/*.md`**.
 3. **Execution** -> this file -> memory + subagents + **`evals/`**.
