@@ -1,29 +1,31 @@
-# Blank AI Project Template Scaffolding
+# Blank AI Project Template v2 Scaffolding
 
 This template combines the 5 Frontier Operations principles with the 4 Prompting Disciplines to structure AI agent projects for long-term autonomous execution.
 
-**Full flow (init → onboarding → specs → execution):** See **`docs/framework-flow.md`** for how initialization, the intent/context interview, spec creation, and execution (single-spec vs orchestrated) fit together and where **`orchestration.md`** and the development/testing skills are used.
+**Full flow (init -> onboarding -> specs -> execution):** See **`docs/framework-flow.md`** for initialization, **`task_breakdown.md`** + **`spec-engineer.md`** (specification phase), and execution (single-spec vs orchestrated with **`orchestration.md`** and the development, test-author, and test-runner skills).
 
-## 🤖 0. AI Autonomous Stand-Up Instructions (Bootstrapping)
+**Entry point:** For a blank or newly copied project, start here at **Section 0** so the full harness scaffold is created before onboarding. Use **`onboarding-agent.md`** directly only when the project root already has the harness scaffold (`.agent/`, `.codex/`, `.cursor/`, `docs/`, `evals/`, `task_specifications/`, `spec-engineer.md`, and `orchestration.md`) or when you intentionally want the lightweight onboarding-only path.
+
+## 0. AI Autonomous Stand-Up Instructions (Bootstrapping)
 *Instructions for any AI system reviewing this repository. Do not require human input to execute this section.*
 
 **AI Directive:**
 If you are an AI agent analyzing this document to stand up a new instance of this project, your objective is to initialize the project strictly according to the specifications below.
-1. **Directory Structure:** Ensure the folder structure matches the `_templates/ai_agent_project` blueprint without prompting for user confirmation.
+1. **Directory structure:** Ensure the folder structure matches the **`_templates/multi-agent-harness`** blueprint (**Multi-Agent Harness** layout) without prompting for user confirmation.
 2. **Dependencies:** Generate and run dependency installation scripts (e.g., `package.json`, `requirements.txt`, `docker-compose.yml`) based on the [Stack] listed below.
-3. **Core Scaffolding:** Create the missing files from the list below if they do not exist.
-4. **Stop & Report:** Once initialized, output a system status report to a file named `INITIALIZATION_REPORT.md` in the root directory.
-5. **Execution scaffold:** Ensure `orchestration.md`, the skills (`.cursor/skills/development/`, `.cursor/skills/testing/`), and the Developer/Tester subagents (`.cursor/agents/developer.md`, `.cursor/agents/tester.md`) exist (create from template or copy from a reference project). These capture the execution design: tasks in memory, dev/test skills, task path passed on invoke, parallel when dependencies allow. See `docs/framework-flow.md` for how they fit the full flow.
-6. **Run onboarding immediately:** After writing `INITIALIZATION_REPORT.md`, open `onboarding-agent.md` and execute that flow. Do not ask the user whether to run onboarding or fill files manually; begin the Seam Designer interview (one question at a time, writing to `intent.md` and `context.md` as you go).
-7. **Routing rule for onboarding:** When the user's response mixes intent (purpose, boundaries, "done"), context (tech, data sources, workflows, observability), and specification-level detail, parse the response and file each part into the correct document. Do not ask the user to re-split; perform the routing yourself and confirm briefly what was captured where.
+3. **Core scaffolding (full harness):** Create any missing files from this template or a reference project so the **lifecycle is complete**: **`onboarding-agent.md`**, **`spec-engineer.md`**, **`orchestration.md`**; **`intent.md`** and **`context.md`** (templates; may use **`ONB0`** on line 1 until onboarding finishes - see **`onboarding-agent.md`**); **`task_specifications/`** (at least **`00_Task_Specification_Template.md`**, **`README.md`**, and other harness files your template ships, e.g. **`SPEC_STAGING.md`**); **`evals/`** (including any shipped placeholder files or acceptance-test guidance); **`boundary_log.md`**, **`failure_model.md`**; **`docs/framework-flow.md`**; **canonical worker instructions under `.agent/agents/` and `.agent/skills/`** (see **`.agent/README.md`**); **Codex adapters/placeholders** under **`.codex/`** (see **`.codex/README.md`**); **Cursor adapters** **`.cursor/skills/development/`**, **`.cursor/skills/test-author/`**, **`.cursor/skills/test-runner/`**, **`.cursor/agents/developer.md`**, **`.cursor/agents/test-author.md`**, and **`.cursor/agents/test-runner.md`**. **`task_breakdown.md`** is **written during onboarding**, not invented during init; do not skip onboarding.
+4. **Stop & report:** Once initialized, output a system status report to a file named **`INITIALIZATION_REPORT.md`** in the root directory.
+5. **Run onboarding immediately:** After writing **`INITIALIZATION_REPORT.md`**, open **`onboarding-agent.md`** and execute that flow. Do not ask the user whether to run onboarding or fill files manually; begin the Seam Designer interview (one question at a time, writing to **`intent.md`** and **`context.md`** as you go).
+6. **Routing rule for onboarding:** When the user's response mixes intent (purpose, boundaries, "done"), context (tech, stack, tools/MCP, runtime, observability), and **deliverable or spec-shaped** detail, parse the response and file each part into the correct document (**`task_breakdown.md`** for **`ST-xx`** scope per **`onboarding-agent.md`**). Do not ask the user to re-split; perform the routing yourself and confirm briefly what was captured where.
+7. **After onboarding:** The human starts a **new session** for **`spec-engineer.md`** (see **`onboarding-agent.md`** Section 9 handoff), then later for execution - see **`docs/framework-flow.md`**.
 
 **[Stack & Setup Details to be completed by user prior to handoff]**
 - **Language/Framework:** [e.g., Python / TypeScript / MCP Server]
-- **Environment:** [e.g., Docker Desktop, n8n, OpenClaw]
+- **Environment:** [e.g., Docker Desktop, WSL, cloud sandbox, CI runner]
 - **Operational Pod Structure:** [Specify if this is a "Team of 1" (single frontier operator) or "Team of 5" (1 lead operator + executors)]
 
 ### For users: How to answer onboarding questions
-When the onboarding agent asks about **intent** (e.g. "What is the primary goal?"), focus on *what you want* and *who decides*: purpose, what "done" looks like at a high level, and what the agent may do without asking. You can add tech or workflow detail in the same answer; the agent will file it in `context.md`. For **context** questions (tech stack, conventions), give the details the next agent needs to "know." Keeping intent answers goal-focused yields cleaner `intent.md`; mixed answers are fine and will be parsed.
+When the onboarding agent asks about **intent** (e.g. "What is the primary goal?"), focus on *what you want* and *who decides*: purpose, what "done" looks like at a high level, and what the agent may do without asking. You can add tech or workflow detail in the same answer; the agent will route stack, tools, and runtime facts to **`context.md`** and work sequencing to **`task_breakdown.md`**. For **context** questions (tech stack, conventions, MCP, install/verify commands), give what implementers need to **know**. Keeping intent answers goal-focused yields cleaner **`intent.md`**; mixed answers are fine and will be parsed.
 
 ---
 
@@ -33,7 +35,7 @@ When the onboarding agent asks about **intent** (e.g. "What is the primary goal?
 ### `intent.md`
 - **Goal:** Encode organizational purpose, trade-off hierarchies, and decision boundaries.
 - **Content:** Primary goal; what "done" looks like for v1; trade-off tie-breakers (e.g. speed vs accuracy); what the user controls and what the agent must escalate; optional one-sentence summary.
-- **Intent interview (1–2 questions):** The onboarding agent gathers intent in two steps: **(Q1)** goal, "done," and controls; **(Q2)** trade-offs and escalation. At each section boundary the **agent** mirrors back what it heard, asks for clarification, incorporates feedback, then moves on (including writing the one-sentence Summary at the top of `intent.md`). See `onboarding-agent.md` for the exact prompts.
+- **Intent interview (1-2 questions):** The onboarding agent gathers intent in two steps: **(Q1)** goal, "done," and controls; **(Q2)** trade-offs and escalation. At each section boundary the **agent** mirrors back what it heard, asks for clarification, incorporates feedback, then moves on (including writing the one-sentence Summary at the top of `intent.md`). See `onboarding-agent.md` for the exact prompts.
 
 ### `boundary_log.md` (The Surprise Log)
 - **Goal:** Track Boundary Sensing.
@@ -41,53 +43,68 @@ When the onboarding agent asks about **intent** (e.g. "What is the primary goal?
 
 ---
 
-## 2. Context Engineering & Capability Forecasting (Environment Layer)
-*The Environment Layer: Providing the right tokens and planning for obsolescence.*
+## 2. Context Engineering (Environment Layer)
+*Durable facts about **how the system is built and run** - not what to build first (that is **`task_breakdown.md`** and **`spec-engineer.md`**).*
 
 ### `context.md` (or `.claude.md`)
-- **Goal:** Curate the optimal set of background tokens.
-- **Content:** The institutional context a new human team member would need. DB schemas, coding conventions, architectural decisions, and communication preferences. 
-- **Capability Forecasting:** Explicitly track which custom scaffolding in this project is a temporary polyfill (expected to be natively handled by the foundation model in 6-12 months).
+- **Goal:** Give agents the same **environment** grounding a new implementer would need: stack, layout, prerequisites, tooling, and conventions - without hunting the wiki.
+- **Sections (see the live template):** **Environment & architecture** (stack, dependencies, repo layout, integrations, observability); **Runtime / environment requirements** (verify commands, platform fallbacks, install policy - sole source for prerequisite checks in **`orchestration.md`**); **Tools, integrations, and MCP** (shell, CLIs, MCP servers, automation); **Rules & conventions** (style, and where acceptance tests live under **`evals/acceptance/`** per **`orchestration.md`**); **Capability forecasting & deprecation** (temporary polyfills with revisit dates, or **`None noted.`**).
+- **What does not belong:** **`ST-xx`** scope, task ordering, or spec content - that lives in **`task_breakdown.md`** (onboarding) and **`task_specifications/`** (**`spec-engineer.md`**). **`context.md`** is not a second backlog.
+- **Who fills it:** **`onboarding-agent.md`** during the interview (**`spec-engineer.md`** reads **`context.md`** when authoring specs).
 
 ---
 
-## 3. Specification Engineering & Seam Design (Action Layer)
-*The Blueprint Layer: Turning tasks into autonomous specifications.*
+## 3. Specification Engineering (Action Layer)
+*Formal specs for each **`ST-xx`** - authored with **`spec-engineer.md`**, then executed under **`orchestration.md`**.*
 
-### `task_specifications/` Directory
-- **Goal:** A library of project tasks broken down using the 5 Specification Primitives.
-- **Template for each spec:**
-  1. **Self-Contained Statement:** State the task with zero implicit contextual assumptions.
-  2. **Acceptance Criteria:** Exactly what verifiable output signals the task is done.
-  3. **Constraint Architecture:** The *Musts*, *Must Nots*, *Preferences*, and *Escalation Triggers*.
-  4. **Decomposition:** How a planner agent should break this large task into independent <2 hour subtasks.
-  5. **Seam Design (Trigger/Output):** Define the exact "seam" (the verifiable artifact) passed back to a human or another system.
+### **`spec-engineer.md`** (Specification Agent)
+- **Bridge:** **`task_breakdown.md`** (onboarding) -> **`task_specifications/NN_ST-xx_short-title.md`** -> execution.
+- **Reads first:** **`task_breakdown.md`** (canonical **`ST-xx`**, **`Depends on:`**, resume), then **`intent.md`** and **`context.md`**, then **`SPEC_STAGING.md`** if present for **OPEN** inbox rows.
+- **Writes:** One spec file per **`ST-xx`**, named **`NN_ST-xx_short-title.md`** (`NN` = `01`, `02`, ... in **`## Sub-tasks`** order). **`DRAFT*`** filenames are allowed until stable; **Phase completion** (**D**) requires non-`DRAFT` specs and a clean reconcile (**A.4**). Full rules: **`spec-engineer.md`** (this README does not restate **Workflow S**, **B**, **C**, **D**).
+
+### `task_specifications/` directory
+- **Goal:** A **library of milestone specs** that **`orchestration.md`** can run (roadmap = **`NN_ST-xx_*.md`** files only).
+- **Not milestones:** **`README.md`**, **`SPEC_STAGING.md`** (staging inbox), **`00_*`** templates, and other non-`NN_ST-xx_*` files - see **`spec-engineer.md`** **A.4** / **D** and **`task_specifications/README.md`**.
+
+### Document template (five `##` sections, this order)
+Authoritative detail is in **`spec-engineer.md`** **Document template**. Summary:
+
+1. **Self-Contained Problem Statement** - What to do; inputs and outputs; assumptions; inline facts not already in **`intent.md`** / **`context.md`** when required.
+2. **Constraint Architecture** - Exactly these subsections: **`### Must`**, **`### Must Not`**, **`### Preferences`**, **`### Escalation Triggers`**.
+3. **Acceptance Criteria** - Exactly **three** numbered sentences (**1.** **2.** **3.**), each independently verifiable.
+4. **Decomposition / Dependencies** - Scoped to **this** **`ST-xx`**: prerequisite **`ST-xx`**, optional micro-steps, parallelism notes (for the Manager - not new product scope).
+5. **Evaluation Design** - **3-5** executable cases **`EV-01`** ... **`EV-05`** (how to run, expected output) proving the acceptance criteria.
+
+**Scaffold:** **`00_Task_Specification_Template.md`** follows the **`spec-engineer.md`** document shape; **`spec-engineer.md`** still wins on any conflict (headings, gates, staging).
 
 ---
 
 ## 4. Prompt Craft & Leverage Calibration (Execution Layer)
-*The Operation Layer: Minimizing prompt craft while calibrating human review.*
+*Execution runs **after** specifications exist. It does **not** replace **`task_breakdown.md`** or **`spec-engineer.md`**. See **`docs/framework-flow.md`**.**
+
+### Prerequisites (before single-spec or orchestrated execution)
+- **Onboarding outputs:** **`intent.md`**, **`context.md`**, **`task_breakdown.md`** with **`ST-xx`** sub-tasks. Global files must not have **`ONB0`** on line 1 when you leave onboarding (see **`onboarding-agent.md`** Section 9).
+- **Specifications:** **`task_specifications/NN_ST-xx_*.md`** files produced by **`spec-engineer.md`** until **Phase completion (D)** - one non-`DRAFT` spec per **`ST-xx`** on disk. If those files are missing or incomplete, run **`spec-engineer.md`** first; do **not** treat execution prompts as a shortcut around the specification phase.
 
 ### Execution modes
-With Intent, Context, and Specifications defined, you can run work in two ways:
+With Intent, Context, **`task_breakdown.md`**, and **formal specs** under **`task_specifications/`** (from **`spec-engineer.md`**), you can run work in two ways:
 
-- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_X.md`."* The agent does that spec's work (and may use the development/testing skills in single-agent mode).
-- **Orchestrated execution:** Multi-milestone, with memory, Developer/Tester roles (or subagents), and **parallel** tasks when dependencies allow. Example prompt: *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* The agent builds the roadmap from `task_specifications/`, writes tasks to `memory/tasks/`, invokes Developer and Tester with task paths, and runs the full Manager loop. See **`orchestration.md`** and **`docs/framework-flow.md`** for when and how to use it.
+- **Single-spec execution:** One milestone at a time. Example prompt: *"Review `intent.md` and `context.md`. Execute `task_specifications/01_ST-01_sample-milestone.md`."* (Use your repo's actual **`NN_ST-xx_*.md`** path.) The agent does that spec's work (and may use the development, test-author, and test-runner skills in single-agent mode).
+- **Orchestrated execution:** Multi-milestone, with memory, Developer / Test Author / Test Runner roles (or subagents), and **parallel** tasks when dependencies allow. Example prompt: *"Review `intent.md`, `context.md`, and `orchestration.md`. Run the orchestration."* The agent builds the roadmap **only** from milestone spec files (**`NN_ST-xx_*.md`**, per **`orchestration.md`**), writes tasks to **`memory/tasks/`**, invokes Developer, Test Author, and Test Runner with task paths, and runs the Manager loop. Same prerequisite: specs must already exist from **`spec-engineer.md`**. See **`orchestration.md`** and **`docs/framework-flow.md`**.
 
-### Leverage Calibration
-Every task specification must define its review threshold:
-- *Autonomous (0% review)*
-- *Sampled (10% review)*
-- *Full Review (100% review)*
+### Leverage calibration
+Optional **review threshold** line at the top of a spec file (e.g. Autonomous / Sampled / Full), if the project wants it - see **`spec-engineer.md`** completion gate **C** and optional review hook.
 
 ---
 
-## 5. Failure Model Maintenance (Observability Layer)
-*The Auditing Layer: Anticipating specific failures instead of generic skepticism.*
+## 5. Observability and evaluation (Observability Layer)
+*Tests, regressions, and explicit failure models.*
 
-### `evals/` Directory
-- **Goal:** 3-5 standard test cases (known good inputs and outputs) per critical agent function. Run these systematically after every model update to catch regressions and prevent the "80% problem".
+### `evals/` directory
+- **Harness path (orchestrated execution):** When you use **`orchestration.md`**, each milestone **Test Author** step writes executable tests under **`evals/acceptance/<spec-stem>/`** (or a path overridden in **`context.md`**). The **stem** matches the **`NN_ST-xx_*.md`** spec filename without extension. **Test Author** uses **Evaluation Design** + **Acceptance Criteria** from the spec only; **Developer** must not read that directory for the active milestone; **Test Runner** runs tests and does not modify them. Order per milestone: Test Author -> Developer -> Test Runner. See **`orchestration.md`** Section 4, **`context.md`** (Rules & conventions), and the canonical skills **`.agent/skills/test-author/SKILL.md`** and **`.agent/skills/test-runner/SKILL.md`** (Cursor discovers wrappers under **`.cursor/skills/`**).
+- **Specification phase:** **`spec-engineer.md`** defines **`EV-xx`** cases in **Evaluation Design**; **materializing** those tests into **`evals/`** is **execution** work unless the human scoped test scaffolding as its own **`ST-xx`**.
+- **Optional:** You may also keep **project-level** regression or smoke suites (e.g. after model or dependency upgrades) elsewhere under **`evals/`** with clear naming so they are not confused with the harness **acceptance** tree.
 
 ### `failure_model.md`
-- **Goal:** A codified mental model of *how* the agent currently fails.
-- **Content:** Map specific failures (e.g., "Agent excels at pandas transforms but frequently drops implicit nulls"). Build specific programmatic checks for these failures rather than relying on human due diligence.
+- **Goal:** A codified mental model of *how* the agent or system fails on this project - so you can add targeted checks instead of generic doubt.
+- **Content:** Map concrete failure modes; link to **`boundary_log.md`** when a surprise reveals a pattern. Prefer **programmatic** or repeatable checks where possible.

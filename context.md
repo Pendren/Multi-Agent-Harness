@@ -1,39 +1,60 @@
+ONB0
 # Context Engineering
 
 **Project:** [Project Name]
 **Date:** [Current Date]
 
-*This document tells the agent "what to know". It curates the optimal set of tokens required for the agent to understand the environment without asking human questions.*
+*This document tells the agent **what is true about the environment**: stack, layout, runtime prerequisites, tooling (including MCP), integrations, and durable technical conventions.*
 
-*During onboarding, tech stack, data sources, workflow descriptions, observability strategy, and UI requirements belong here; purpose and decision boundaries belong in `intent.md`.*
+*It does **not** define **what** to build or **in what order** - that is **`task_breakdown.md`** (structure) and **`spec-engineer.md`** (specifications). Purpose, trade-offs, and escalation live in **`intent.md`**. Mixed interview content that is deliverable-shaped still belongs in **`task_breakdown.md`**, not here, except for **project-wide durable** technical facts (see **`onboarding-agent.md`** Section 2).*
 
-## 1. Environment & Architecture
-- **Tech Stack:** [e.g., Python 3.11, Next.js, Postgres]
-- **Key Dependencies:** [List crucial libraries/versions]
-- **Directory Layout Details:** [Explain where things live]
+---
 
-## 1a. Runtime / environment requirements
+## 1. Environment & architecture
 
-*What must be installed and present for the project to run (prerequisites). Established during onboarding; orchestration verifies these before starting work that depends on them. If a requirement is not present, the agent follows the **requirement failure state** in intent.md (try alternatives, attempt install if allowed, then escalate).*
+- **Tech stack:** [e.g., Python 3.11, Next.js, Postgres]
+- **Key dependencies:** [libraries and versions that matter for build, test, and CI]
+- **Repository layout:** [where application code, configs, tests, docs, and harness files live]
+- **Data sources & integrations:** [APIs, databases, queues, external services---how the repo connects]
+- **Observability:** [logging, metrics, or tracing expectations if relevant]
+
+---
+
+## 2. Runtime / environment requirements
+
+*What must be installed for builds, tests, or local runs. Onboarding adds one table row per requirement the user names. This table is the **sole** source for prerequisite checks in orchestration and skills. If something is missing, follow **`intent.md`** (requirement failure state).*
 
 | Requirement | Verify (command or check) | Platform fallbacks | Agent may install if missing? |
 |-------------|---------------------------|--------------------|-------------------------------|
 | [Example: Python 3.x] | [e.g. `python --version` or `py --version`] | [e.g. On Windows: if `python` not found, use `py`] | [yes / no / suggest only] |
 
-*Onboarding agent adds one row per requirement the user names; replace or extend the example row as needed.*
+- **When to verify:** **`spec-engineer.md`** **Workflow ENV** authors **`evals/environment/`** (manifest + entry script) from this table and **`Tools/MCP`**—**before** milestone **Evaluation Design**—and runs it when a shell is available. **`orchestration.md`** **Section 1** runs that same entry (if present) **before** milestone **Test Author**; Developer, Test Author, and Test Runner skills apply fallbacks from this table when running commands (try documented fallbacks before concluding a requirement is missing).
 
-- **When to verify:** Orchestration checks requirements at initialization and before starting milestones that depend on them. Development and testing skills use the verify/fallback rules when running commands (e.g. try the documented alternative before concluding a requirement is missing).
+---
 
-## 2. Rules & Conventions
-- **Coding Style / Tone of Voice:** [e.g., Follow PEP8, use descriptive variable names, write in a professional but approachable tone]
-- **Acceptance test directory (test–implementation separation):** Acceptance tests are written from the spec **before** implementation and live under **evals/acceptance/** (per-task subdirs e.g. evals/acceptance/01-step2/). The Developer must not read this directory; the Test Author writes here from spec only; the Test Runner runs tests here and does not modify them. See orchestration.md §2b.
-- **Data Structures / DB Schema Context:** [Provide relevant schemas or links to them]
+## 3. Tools, integrations, and MCP
 
-## 3. Spec Candidates / First Specs to Draft
-*After onboarding, `task_specifications/` contains only the template (`00_Task_Specification_Template.md`). No concrete specs exist yet. During onboarding, the agent fills this section with a short list of suggested first specs derived from the project (workflows/features the user described). The next session should create initial task specifications from `intent.md` and this file, then execute the first one.*
-- [Agent fills during onboarding: e.g. "First feature", "Integration layer", "API or UI surface" — one line per candidate; add v1 order note if applicable]
+*Facts about **how** work is done in this repo: shells, CLIs, MCP servers, and other agent-visible tools. List only what the user confirms in onboarding or what **`intent.md`** names as project truth.*
 
-## 4. Capability Forecasting & Deprecation
-*What custom code or scaffolding exist here that we expect foundation models to handle natively in 6-12 months?*
-- **Temporary Polyfill:** [e.g., Custom chunking logic for RAG]
-- **Review Date:** [Set a date 3 months out to test if the model can do this natively yet]
+- **Shell / CLI:** [e.g., PowerShell, bash, required global CLIs]
+- **Package managers:** [e.g., npm, pip, uv, pnpm]
+- **MCP (Model Context Protocol):** [servers available in this workspace; purpose; auth or setup notes if any]
+- **Other automation / agent tools:** [e.g., cloud CLIs, internal scripts]
+
+If nothing applies yet, write **`None noted.`** as the only bullet under this heading.
+
+---
+
+## 4. Rules & conventions
+
+- **Coding style / tone:** [e.g., PEP 8, formatter, commit conventions]
+- **Acceptance test layout (test-implementation separation):** Acceptance tests are written from the spec **before** implementation and live under **`evals/acceptance/<spec-stem>/`**. The Developer must not read that tree for the active milestone; the Test Author writes from the spec only; the Test Runner runs tests and does not modify them. See **`orchestration.md`**, Section 4.
+
+---
+
+## 5. Capability forecasting & deprecation
+
+*Onboarding uses the decision table in **`onboarding-agent.md`** Section 5 (Context) for when to add a forecasting bullet vs. **`None noted.`** Do not leave this subsection empty.*
+
+- **Temporary polyfill / tooling glue:** [description, or **`None noted.`**]
+- **Revisit date:** [date, or **`None noted.`**]

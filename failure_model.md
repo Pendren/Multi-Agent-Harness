@@ -1,20 +1,21 @@
-# Failure Model
+# Failure model
 
 **Project:** [Project Name]
-**Last Updated:** [Date]
+**Last updated:** [Date]
 
-*A codified mental model of how this specific agent/system currently fails. Use this as a diagnostic runbook for edge cases and to build programmatic checks instead of relying on human due diligence.*
+*A codified view of how this agent or system tends to fail, so you can add targeted checks instead of generic skepticism. Update as you learn.*
 
-## Current Known Failure Modes
+## Current known failure modes
 
-*(Add entries as you discover failure patterns. Template below.)*
+*(Add entries as you discover patterns. One row per distinct failure type.)*
 
-### 1. [Name of Failure Type]
-- **Symptom:** [How it manifests to the user]
-- **Root Cause:** [Why the LLM or system does it]
-- **Recovery Action:** [What the human or system must do when this occurs]
-- **Mitigation in Evals:** [Yes/No — is this covered by the evaluation suite?]
+### 1. [Name of failure type]
+
+- **Symptom:** [How it shows up for the user or operator]
+- **Root cause:** [Why it happens - model, tooling, data, etc.]
+- **Recovery:** [What to do when it happens]
+- **Covered by evals:** [Yes / No / Partial]
 
 ---
 
-*Example: "Agent excels at pandas transforms but confidently hallucinates string formatting on edge cases. Mitigation: Review all df.apply logic individually. Evals: No."*
+*Example (generic): "Agent returns plausible but wrong IDs when the source document is ambiguous. Recovery: require citation of source span. Covered by evals: Partial."*
